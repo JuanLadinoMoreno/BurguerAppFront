@@ -1,0 +1,100 @@
+.menu-index {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    overflow: hidden;
+
+    .cont-menu-index {
+        position: relative;
+        // background: #0F1854;
+        /* border: 1px solid #fff; */
+        @include dFlex(space-around, flex-start,column nowrap);
+        height: 420px;
+        padding: 10px 20px;
+        // z-index: -1;
+
+        &:nth-child(1) {
+            background: #0F1854;
+        }
+        
+        &:nth-child(2) {
+            background: #F2CB05;
+        }
+        
+       &:nth-child(3) {
+            background: #EC6809;
+        }
+        
+        &:nth-child(4) {
+            background: #8F5B00;
+        }
+        
+        &:nth-child(5) {
+            background: #80D25B;
+        }
+
+        // &:nth-child(5) img,
+        // &:nth-child(4) img{
+        //     right: -20px;
+        //     width: 380px;
+        //     height: 400px;
+        // }
+
+        h3 {
+            font-family: $font-primera;
+            font-size: 34px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 200;
+            color: #FFF;
+            padding-left: 10px;
+        }
+
+        p {
+            /* font-family: var(--font-tercera); */
+            color: #FFF;
+            width: 60%;
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            z-index: 2;
+            padding-left: 10px;
+
+            @include Tablet(){
+                width: 100%;
+            }
+        }
+
+        img {
+            position: absolute;
+            bottom: 0;
+            right: -61px;
+            
+            width: 280px;
+            height: 400px;
+            // z-index: -1;
+
+            @include Tablet(){
+                right: 0;
+                width: 195px;
+                height: 255px;
+                opacity: 0.8;
+            }
+        }
+
+        ul{
+            @include dFlex(center, flex-start, column nowrap);
+            color: #FFF;
+            width: 50%;
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            z-index: 2;
+            padding-left: 40px;
+            
+        }
+    
+    }
+}

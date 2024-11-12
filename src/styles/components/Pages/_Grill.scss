@@ -1,0 +1,187 @@
+.headerPaga {
+    @include headerP('/img/headers/bg-asad.jpg');
+   
+}
+
+.scAsados {
+    @include dFlex(center, center, column nowrap);
+    width: 100%;
+
+    .title-grill{ 
+
+        display: none;
+
+        @include Tablet() {
+            // opacity: 0;
+            display: inline-block;
+        } 
+    }
+
+    .cntSec1 {
+        @include dFlex(center, center, row wrap);
+        width: 100%;
+        text-transform: uppercase;
+
+        h3 {
+            font-family: $font-segunda;
+            // font-size: 4vmin;
+            color: $color-cuarto;
+            letter-spacing: 1px;
+            text-align: center;
+            font-weight: 200;
+            letter-spacing: 2px;
+            text-shadow: 3px 2px #A95000;
+        }
+
+        
+
+        &__cntDatos {
+            @include dFlex(center, center, column nowrap);
+            width: 50%;
+            margin: 0 10px;
+            position: relative;
+
+            &::before {
+                content: '';
+                position: absolute;
+                // display: flex;
+                // justify-content: center;
+                // align-items: center;
+                // place-items: center center;
+                // place-content: center;
+                bottom: 0;
+                // left: 0;
+                width: 350px;
+                height: 420px;
+                background: url(/img/grill/campfire.png);
+                background-size: cover;
+                background-position: center center;
+                background-repeat: no-repeat;
+                opacity: 0.1;
+                z-index: -1;
+            }
+            h3{
+                @include Tablet() {
+                    // opacity: 0;
+                    display: none;
+                }            
+            }
+
+
+            
+
+        }
+
+        &__cntProducts {
+            @include dFlex(center, flex-start, column nowrap);
+
+            h4 {
+                font-family: $font-segunda;
+                font-size: 3.7vmin;
+                color: #000;
+                letter-spacing: 1px;
+                text-align: center;
+                font-weight: 200;
+                margin-top: 15px;
+            }
+
+            p {
+                // font-family: $font-cuarta;
+                font-size: 18px;
+                color: #000;
+                text-align: justify;
+                font-weight: 400;
+                margin: 15px;
+            }
+            span {
+                font-size: 24px;
+                color: #000;
+                text-align: justify;
+                font-weight: 400;
+                margin: 15px;
+                color: $color-cuarto;
+                transform: rotateX(20deg)
+            }
+
+        }
+
+        &__cntImages {
+            // width: 50%;
+            // height: 100%;
+            display: grid;
+            // grid-template-areas: "img1 ";
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: auto;
+            grid-template-areas:
+                "item1 ."
+                ". item2"
+                "item3 .";
+            gap: 20px;
+            margin: 0 10px;
+            // justify-items: center;]
+            img {
+                width: 140px;
+                height: 160px;
+                // object-fit: cover;
+
+                &:nth-child(1) {
+                    grid-area: item1;
+                }
+
+                &:nth-child(2) {
+                    grid-area: item2;
+                }
+
+                &:nth-child(3) {
+                    grid-area: item3;
+                }
+            }
+
+            @include Tablet() {
+                // opacity: 0;
+                display: none;
+            }
+
+        }
+
+    }
+
+}
+
+
+// .cont-menuAsado{
+//     // background-color: #303030; /* Fondo similar al de la imagen */
+//     background: linear-gradient(0deg, rgba(153, 133, 55, 0.6) 0%, rgba(254, 254, 254, 1) 100%);
+//     color: #f5f5f5;
+// }
+
+.menu-title, .complementos-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+    color: #ffffff;
+}
+.card {
+    // background-color: #424242; /* Fondo de las tarjetas similar al color de la imagen */
+    margin-bottom: 20px;
+    border-radius: 10px;
+    max-width: 450px;
+    // border: 1px solid #616161; /* Borde ligeramente más oscuro */
+    // box-shadow: 1px 1px 2px #c5c5c5; /* Sombra para dar profundidad */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para dar profundidad */
+    
+}
+.card-title {
+    color: #ffcc00; /* Color amarillo para los títulos de las tarjetas, similar al texto destacado en la imagen */
+    text-shadow: 2px 2px #A95000;
+}
+.card-body {
+    font-size: 22px;
+    text-align: center;
+}
+.menu-item-price {
+    font-weight: bold;
+    color: #00e676; /* Verde brillante para los precios */
+    font-size: 1.5em;
+}

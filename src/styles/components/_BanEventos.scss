@@ -1,0 +1,68 @@
+.sect-events {
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .cont-dats {
+        /* background-color: #F2CB05; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+        height: 300px;
+
+        h2 {
+            color: $color-primero;
+            font-family: $font-primera;
+            font-size: 42px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            color: $color-primero;
+            font-family: $font-tercera;
+            font-size: 28px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+    }
+
+    .cont-images {
+        width: 100%;
+        @include dGrid(repeat(5, 1fr), repeat(1, 150px), 0px);
+
+        @include Tablet {
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(1, 150px);
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+
+            @include Tablet {
+                &:nth-child(1),
+                &:nth-child(5) {
+                    display: none;
+                }
+            }
+
+        }
+
+
+
+        //     @include Phone(){
+        //         grid-template-columns: repeat(2, 1fr);
+        //     grid-template-rows: repeat(1, 150px);
+        //     }
+    }
+}

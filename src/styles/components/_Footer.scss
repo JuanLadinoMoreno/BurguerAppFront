@@ -1,0 +1,143 @@
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    // background-color: rgba($color-segundo, 0.9);
+    // opacity: 0.8;
+    // color: #FFF;
+    padding-top: 30px;
+
+    // &::before {
+    //     content: '';
+    //     position: absolute;
+    //     top: -1px;
+    //     left: 0;
+    //     width: 100%;
+    //     height: 15px;
+    //     background: url(../../public/img/shape-white.png);
+    //     transform: rotate(180deg);
+    // }
+    
+    .bg-foot{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        // height: 100%;
+        height: 100%;
+        background: linear-gradient(270deg, #F28705 3.07%, #F2CB05 77.98%);
+        opacity: .8;
+        z-index: -1;
+    }
+
+    a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 5px;
+        font-size: 20px;
+        font-weight: 200;
+        letter-spacing: 2px;
+        font-weight: 500;
+        // color: #fff;
+        color: $color-primero;
+        // background: var(--color-segundo);
+    }
+
+
+    p, span {
+        // background-color: aquamarine;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        text-align: center;
+        font-weight: 500;
+        // color: #FFF;
+        color: $color-primero;
+        padding-top: 5px ;
+
+        &::before {
+            content: '';
+            top: 0;
+            // left: 0;
+            transform: translateX(50% -50%);
+            position: absolute;
+            width: 80%;
+            height: 1px;
+            background-color: #FFF;
+            
+            // @include Phone{
+            //     width: 285px;
+
+            // }
+        }
+    }
+
+    .cont-food {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 80%;
+        padding: 20px 0;
+
+    }
+
+    .food-menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: #FFF;
+
+        a {
+            color: $color-primero;
+
+        }
+    }
+
+    img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .food-icons {
+        position: relative;
+        color: #FFF;
+        padding-bottom: 10px;
+
+        &::before {
+            content: '';
+            bottom: -1px;
+            // left: 0;
+            transform: translateX(50% -50%);
+            position: absolute;
+            min-width: 285px;
+            width: 30%;
+            height: 1px;
+            background-color: #FFF;
+        }
+
+
+        a {
+            // display: flex;
+            // justify-content: center;
+            // align-items: center;
+            width: 40px;
+            height: 40px;
+            // margin: 0 5px;
+            // font-size: 20px;
+            // font-weight: 200;
+            color: #fff;
+            // background: var(--color-segundo);
+            border-radius: 50%;
+            border: 2px solid #FFF;
+        }
+
+
+
+    }
+}

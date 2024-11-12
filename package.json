@@ -1,0 +1,46 @@
+{
+  "name": "burguerroblesapp",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "bootstrap-icons": "^1.11.2",
+    "firebase": "^10.7.1",
+    "js-cookie": "^3.0.5",
+    "leaflet": "^1.9.4",
+    "react": "^18.3.1",
+    "react-data-table-component": "^7.6.2",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.51.0",
+    "react-leaflet": "^4.2.1",
+    "react-router-dom": "^6.21.0",
+    "react-toastify": "^10.0.4",
+    "socket.io-client": "^4.7.4",
+    "styled-components": "^6.1.12",
+    "sweetalert2": "^11.10.7",
+    "sweetalert2-react-content": "^5.0.7",
+    "toastify-js": "^1.12.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "sass": "^1.69.5",
+    "vite": "^5.0.8"
+  },
+  "description": "_Sitio web en donde los clientes podran encontrar informacion del negocio, asi como tambien poder realizar pedidos via web_",
+  "main": "vite.config.js",
+  "author": "",
+  "license": "ISC"
+}

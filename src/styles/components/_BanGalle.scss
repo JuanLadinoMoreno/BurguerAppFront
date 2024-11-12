@@ -1,0 +1,133 @@
+.sect-gallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .grid-container {
+
+        width: 80%;
+        @include dGrid(repeat(4, 1fr), repeat(3, 210px), 5px);
+        
+
+        @include Tablet() {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, 210px);
+        }
+
+        @include Phone() {
+            grid-template-columns: repeat(1, 1fr);
+            grid-template-rows: repeat(3, 210px);
+        }
+    }
+
+    .item {
+        border-radius: 10px;
+        overflow-y: hidden;
+        transition: all .5s;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;            
+        }
+        
+        &:hover{
+                transform: scale(1.05);
+            }
+    }
+}
+
+.lightbox.isActive{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox{
+    background: rgba($color: #000000, $alpha: 0.4);
+    backdrop-filter: blur(2rem);
+    @include dFlex(center, center, column nowrap);
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    // opacity: 0;
+    pointer-events: auto;
+    z-index: 100;
+
+    .imgGra{
+        width: 90%;
+        max-width: 700px;
+        max-height: 80vh;
+        object-fit: contain;
+        border-radius: 30px;
+        
+    }
+
+    .btnClos{
+        // width: 70px;
+        // height: 70px;
+        // font-size: 60px;
+        // color: #FFF;
+        cursor: pointer;
+        transform: scale(.9);
+        transition: all .5s ease;
+
+        &:hover{
+            transform: scale(1);
+        }
+
+        &:active{
+            transform: scale(1.1);
+        }
+    }
+}
+
+.lightboxEv.isActive{
+    opacity: 1 !important;
+    pointer-events: auto;
+}
+.lightboxEv{
+    background: rgba($color: #000000, $alpha: 0.4);
+    backdrop-filter: blur(2rem);
+    @include dFlex(center, center, column nowrap);
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    // opacity: 0;
+    pointer-events: auto;
+    z-index: 100;
+
+    .imgGra{
+        width: 90%;
+        max-width: 700px;
+        max-height: 80vh;
+        object-fit: contain;
+        border-radius: 30px;
+        
+    }
+
+    .btnClosEv{
+        @include dFlex(center, center, column nowrap);
+        width: 50px;
+        height: 50px;
+        font-size: 25px;
+        background: transparent;
+        border-radius: 50%;
+        margin-top: 10px;
+        cursor: pointer;
+        transform: scale(0.9);
+        transition: all .5s ease;
+
+        &:hover{
+            transform: scale(1);
+        }
+
+        &:active{
+            transform: scale(1.1);
+        }
+    }
+}

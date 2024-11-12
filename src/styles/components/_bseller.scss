@@ -1,0 +1,127 @@
+
+
+.sect-bseller {
+    
+
+    .cont-text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        // width: 40%;
+
+        img {
+            
+            position: absolute;
+            top: -55px;
+            left: -55px;
+            width: 170px;
+            height: 160px;
+            margin-left: 50px;
+            z-index: -1;
+            animation: bestSell 5s linear infinite alternate-reverse running;
+
+            @include Tablet{
+                top: -100px;
+            }
+            // transform: rotateX(50deg);
+        }
+
+        h3 {
+            
+
+
+            font-family: $font-primera;
+            color: transparent;
+            font-size: 55px;
+            padding: 0 15px;
+            font-weight: 100;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-align: center;
+            -webkit-text-stroke-width: 4px;
+            -webkit-text-stroke-color: $color-primero;
+            // text-shadow: #FC0 5px 0 15px;
+
+            &:nth-child(1) {
+                -webkit-text-stroke-color: $color-primero;
+            }
+            &:nth-child(2) {
+                -webkit-text-stroke-color: $color-segundo;
+            }
+            &:nth-child(3) {
+                -webkit-text-stroke-color: $color-cuarto;
+            }
+            &:nth-child(4) {
+                -webkit-text-stroke-color: #80D25B;
+            }
+        }
+
+        p {
+            /* font-family: var(--font-tercera); */
+            color: $color-segundo;
+            // width: 50%;
+            font-size: 26px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-align: center;
+            margin: 20px;
+            padding: 10px;
+
+        }
+    }
+
+
+}
+
+.img-cont {
+    // background: brown;
+    // width: 50%;
+    display: grid;
+    grid-template-columns: repeat(2, 160px);
+    grid-template-rows: repeat(2, 160px);
+    gap: 2px;
+    align-content: center;
+    position: relative;
+    // padding: 20px;
+
+    // min-width: 160px;
+    // min-height: 160px;
+
+    @include Phone {
+        grid-template-columns: repeat(2, 140px);
+        grid-template-rows: repeat(2, 140px);
+
+        align-content: center;
+    }
+
+    @include Tablet {
+        grid-template-columns: repeat(2, 120px);
+        grid-template-rows: repeat(2, 120px);
+
+        align-content: center;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+
+    }
+
+    
+}
+
+@keyframes bestSell {
+    from {
+        transform: rotateY(-50deg);
+
+    }
+
+    to {
+        transform: rotateY(50deg);
+    }
+}
+

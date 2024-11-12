@@ -1,0 +1,368 @@
+.headerPagasa {
+    @include headerP('/img/headers/bg-about.jpg');
+   
+}
+
+.sectAbo {
+
+    @include dFlex(space-between, center, row wrap);
+    padding-top: 60px;
+
+
+    &__images {
+
+
+        img {
+            width: 100%;
+            height: 100%;
+            max-height: 480px;
+            transform: rotateY(10deg);
+            mask-image: linear-gradient(
+                white 85%,
+                transparent
+            );
+
+        }
+
+    }
+
+    &__datos {
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: url(../assets/img/icons/Burguer.svg);
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            bottom: 20px;
+            right: 0;
+            opacity: 0.6;
+            transform: rotate(-15deg);
+            z-index: -1;
+
+            @include Phone {
+                max-width: 200px;
+                max-height: 200px;
+            }
+        }
+    }
+
+    &__datosLogo {
+        padding: 50px 0;
+        position: relative;
+        color: $color-primero;
+        letter-spacing: 1px;
+
+
+
+
+        h3 {
+            padding: 0 10px;
+
+            font: {
+                family: $font-primera;
+                size: 75px;
+                weight: 600;
+            }
+
+            text: {
+                align: center;
+                transform: uppercase;
+                shadow: #FC0 5px 0 5px;
+                // shadow: 3px 5px #A95000;
+            }
+
+
+            // -webkit-text-stroke: 1px $color-segundo;
+        }
+
+
+        h2 {
+            font: {
+                family: $font-primera;
+                size: 45px;
+                weight: 200;
+            }
+
+            text: {
+                align: center;
+                transform: uppercase;
+                shadow: 3px 5px #A95000;
+            }
+
+            color: $color-segundo;
+            letter-spacing: 1px;
+
+        }
+
+        &::before {
+            content: 'DESDE';
+            position: absolute;
+            top: -10px;
+            z-index: 2;
+            color: $color-segundo;
+            border-top: 2px solid $color-primero;
+            border-bottom: 2px solid $color-primero;
+            margin: 20px 0;
+
+            font: {
+                family: $font-primera;
+                size: 25px;
+                weight: 200;
+            }
+
+            text: {
+                align: center;
+                transform: uppercase;
+            }
+        }
+
+        &::after {
+            content: '1989';
+            position: absolute;
+            bottom: 10px;
+            // z-index: 1;
+            color: $color-segundo;
+            border-top: 2px solid $color-primero;
+            border-bottom: 2px solid $color-primero;
+
+            font: {
+                family: $font-primera;
+                size: 25px;
+                weight: 200;
+            }
+
+            text: {
+                align: center;
+                transform: uppercase;
+            }
+        }
+
+    }
+
+    p {
+        
+        letter-spacing: 2px;
+        
+        font: {
+            size: 18px;
+            weight: 400;
+            family: $font-tercera;
+        }
+
+        text: {
+            align: center;
+            transform: uppercase;
+            // shadow: #FC0 5px 0 5px;
+            // shadow: 3px 5px #A95000;
+        }
+    }
+
+    &__conte {
+        @include Tablet() {
+            flex-wrap: wrap-reverse
+        }
+    }
+
+}
+
+
+
+.gridContainerCa {
+    padding: 70px;
+    display: grid;
+    // gap: 80px;
+    // grid-template-columns: 1fr 1fr;
+    // grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+    display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr 1fr; 
+  gap: 70px 30px; 
+  grid-template-areas: 
+  ". ."
+  ". ."; 
+  
+  
+  @include Phone {
+    grid-template-columns: 1fr; 
+    grid-template-rows: 1fr 1fr 1fr 1fr; 
+    gap: 92px 56px; 
+    grid-template-areas: 
+      "."
+      "."
+      "."
+      ".";
+    //   grid-template-rows: 4fr 1fr; 
+    }
+
+
+    
+
+    &__itemCa {
+        @include dFlex(center, center, column nowrap);
+        position: relative;
+        // min-width: 350px;
+        // max-width: 400px;
+        max-height: 350px;
+        margin: 20px;
+        // background: #fff;
+        background: linear-gradient(0deg, rgba(255, 204, 0, 0.6) 0%, rgba(254, 254, 254, 1) 100%);
+        box-shadow: 1px 1px 2px #c5c5c5;
+        padding: 70px 40px;
+        text-align: center;
+        transition: all 3s;
+
+        &:hover {
+            background: linear-gradient(0deg, rgba(236, 104, 9, 0.3) 0%, rgba(254, 254, 254, 1) 100%);
+            box-shadow: 5px 5px 8px #888;
+        }
+
+
+
+        img {
+            position: absolute;
+            width: 225px;
+            height: 170px;
+            top: -110px;
+            left: 50%;
+            transform: translateX(-50%);
+            // object-fit: cover;
+            object-position: center;
+            // border-radius: 50%;
+            // z-index: 2;
+
+        }
+
+        &--quoteR {
+            position: absolute;
+            font-size: 90px;
+            top: 20px;
+            right: 40px;
+            opacity: 0.1;
+            transition: all .5s;
+
+
+        }
+
+        &:hover &--quoteR {
+            // color: $color-primero;
+            transform: translateY(-60px);
+            opacity: 1;
+        }
+
+        &--quoteL {
+            position: absolute;
+            font-size: 90px;
+            bottom: 20px;
+            left: 40px;
+            opacity: 0.1;
+            transition: all .5s;
+
+
+        }
+
+        &:hover &--quoteL {
+            // color: $color-primero;
+            transform: translateY(60px);
+            opacity: 1;
+        }
+
+        p {
+            font-family: $font-segunda;
+            // font-size: 24px;
+            font-size: 1.3rem;
+            transition: all .5s;
+        }
+
+        
+
+        h2 {
+            font-family: $font-segunda;
+            color: $color-cuarto;
+            -webkit-text-stroke: 2px $color-segundo; /* Width and color of the stroke */
+            // text-stroke: 2px black; /* Standard property */
+            // margin: 10px 0 0 0;
+            font-size: 62px;
+            font-weight: 200;
+            text-transform: uppercase;
+            transition: all .5s;
+            text-shadow: 1px solid $color-primero;
+            margin: 0 10px;
+            
+            span{
+                font-size: 68px;                
+            }
+        }
+
+        &:hover h2{
+            color: #FFF;
+            -webkit-text-stroke: 2px $color-segundo;
+        }
+
+        h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: $color-segundo;
+            text-transform: uppercase;
+            transition: all .5s;
+        }
+
+        &:hover &__iconsAb a {
+            color: #fff;
+            border: 2px solid #FFF;
+            transform: scale(1.3) rotateY(360deg);
+            margin: 0 10px;
+        }
+
+        &__iconsAb {
+            @include dFlex(center, center, row nowrap);
+            margin-top: 10px;
+
+            a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 30px;
+                height: 30px;
+                margin: 0 5px;
+                font-size: 17px;
+                color: #888;
+                /* background: var(--color-segundo); */
+                border-radius: 50%;
+                border: 2px solid #888;
+                transition: all 1s;
+
+                &:hover {
+                    color: $color-segundo !important;
+                    border: 2px solid $color-segundo !important;
+                }
+            }
+
+            // @include Phone {
+            //     display: none !important;
+            // }
+
+            
+
+        }
+
+        &:hover &__iconsAb a {
+            color: #fff;
+            border: 2px solid #FFF;
+            transform: scale(1.3) rotateY(360deg);
+            margin: 0 10px;
+        }
+
+        a {
+            @include Phone {
+                display: block !important;
+            }
+        }
+    }
+
+}

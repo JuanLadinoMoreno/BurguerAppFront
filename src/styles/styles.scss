@@ -1,0 +1,30 @@
+//GENERAL
+@import "general/fonts";
+@import "general/variables";
+@import "general/generales";
+@import "general/mixin";
+@import "general/mediaq";
+
+
+
+
+
+// COMPONENTES
+@import './components/NavBar';
+@import './components/Header';
+@import './components/BSeller';
+@import './components/MenuIndex';
+@import './components/BanIcons';
+@import './components/BanAsados';
+@import './components/BanGalle';
+@import './components/BanEventos';
+@import './components/Footer';
+
+@import './components/Pages/Menu';
+@import './components/Pages/Shop';
+@import './components/Pages/About';
+@import './components/Pages/Grill';
+
+
+@import './components/Dash/aside';
+@import './components/Dash/Form';

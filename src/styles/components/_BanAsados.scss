@@ -1,0 +1,88 @@
+.ban-asados {
+
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 500px;
+    background: url(/img/headers/bg-asad.jpg);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: 40px 0;
+
+    .bg-blue {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        /* background: rgba(0, 0, 0, 0.4); */
+        background: rgba(15, 24, 84, 0.60);
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: url(/img/shape-white.png);
+            transform: rotate(180deg);
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: url(/img/shape-white.png);
+        }
+
+    }
+
+    h2 {
+        color: #FFF;
+        font-family: $font-primera;
+        font-size: 42px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-align: center;
+        text-transform: uppercase;
+        z-index: 1;
+        margin: 0 10px;
+    }
+
+    .cont-bot {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+        color: #FFF;
+        /* width: 50%; */
+        z-index: 1;
+
+        p {
+            // font-family: $font-segunda;
+            color: #FFF;
+            width: 50%;
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            padding: 20px 10px;
+            text-align: center;
+
+            @include Phone() {
+                width: 100%;
+            }
+        }
+    }
+    
+
+
+}
