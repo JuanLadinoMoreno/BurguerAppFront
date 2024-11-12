@@ -516,7 +516,6 @@ export default function AddProducts() {
 
     try {
 
-      console.log('data', data);
       const result = await Swal.fire({
         title: "Desea guardar el producto?",
         showDenyButton: true,
