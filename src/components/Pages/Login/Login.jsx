@@ -3,7 +3,7 @@ import { useAuth } from "../../../context/AuthContext";
 // import { onLogin } from "../../../services/";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import BanEventos from '../../Pages/Home/BanEventos'
 
@@ -38,6 +38,7 @@ function login() {
   const { signIn, isAuthenticated } = useAuth()
 
   const navigate = useNavigate()
+  const location = useLocation();
 
   const onSubmitLogin = async (data) => {
     await signIn(data);
@@ -45,9 +46,10 @@ function login() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/menu");
+      const previousPath = location.state?.from?.pathname || '/menu';
+      navigate(previousPath);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate, location.state]);
 
 
 
