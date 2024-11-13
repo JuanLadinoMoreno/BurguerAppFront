@@ -54,6 +54,8 @@ export const Cart = () => {
   const [total, setTotal] = useState(0);
   const [customer, setCustomer] = useState('');
 
+  const [quantityProd, setQuantityProd] = useState(0);
+
 
   // obtenerDetallesProductos(count)
   // .then((productosConDetalles) => {
@@ -133,7 +135,7 @@ export const Cart = () => {
       } catch (error) {
         console.error("Error al mostrar los productos:", error);
       }
-      !isEdit ?  "" : setCustomer(idCustomer)
+      !isEdit ? "" : setCustomer(idCustomer)
     }
 
     mostrarCarritoConDetalles()
@@ -184,6 +186,29 @@ export const Cart = () => {
     arr.push({ products: count })
     return arr
   }
+
+
+  const incrementQuantity = (index) => {
+    setCount((prevCount) => {
+      const updatedCount = [...prevCount];
+      updatedCount[index].quantity += 1;
+      // calcularTotal(updatedCount); // Calculamos el total después de actualizar count
+      return updatedCount;
+    });
+  };
+  
+  const decrementQuantity = (index) => {
+    setCount((prevCount) => {
+      const updatedCount = [...prevCount];
+      if (updatedCount[index].quantity > 1) {
+        updatedCount[index].quantity -= 1;
+        // calcularTotal(updatedCount); // Calculamos el total después de actualizar count
+      }
+      return updatedCount;
+    });
+  };
+  
+
 
 
 
@@ -354,9 +379,9 @@ export const Cart = () => {
       console.log('customer', customer);
 
 
-      const title = isEdit ? 
-                  `Desea actualizar la orden ${idCard}` : 
-                  'Desea crear la orden'
+      const title = isEdit ?
+        `Desea actualizar la orden ${idCard}` :
+        'Desea crear la orden'
       const result = await Swal.fire({
         title: title,
         icon: "question",
@@ -372,14 +397,6 @@ export const Cart = () => {
           // const prodCar = conv()
           if (!isEdit === true) {
 
-            // Swal.fire({
-            //   position: "center",
-            //   icon: "success",
-            //   title: "Compra realizada",
-            //   text: "Gracias por confiar en nosotros",
-            //   showConfirmButton: true,
-            //   // timer: 1500
-            // });
 
             const resp = await saveCart(count, customer, total)
             if (resp) {
@@ -412,14 +429,6 @@ export const Cart = () => {
               });
             }
 
-            // Swal.fire({
-            //   position: "center",
-            //   icon: "success",
-            //   title: "Actualizar",
-            //   text: "Gracias por confiar en nosotros",
-            //   showConfirmButton: true,
-            //   // timer: 1500
-            // });
           }
 
 
@@ -431,7 +440,7 @@ export const Cart = () => {
 
             if (error.response.status === 400) {
               Swal.fire("Permiso denegado", error.response.data.error, "warning");
-            }else if (error.response.status === 409) {
+            } else if (error.response.status === 409) {
               // Swal.fire("Permiso denegado", error.response.data.error, "warning");
               Swal.fire(error.response.data.error, "Actualice stock", "warning");
             }
@@ -490,14 +499,14 @@ export const Cart = () => {
                     className="form-select text-uppercase mt-2"
                     // value={!isEdit ? idCustomer : ""}
                     value={idCustomer}
-                    onChange={(e) => { 
+                    onChange={(e) => {
                       const value = e.target.value;
-                      setCustomer(value) 
+                      setCustomer(value)
                       setIdCustomer(value)
                       // console.log('e.target.value', e.target.value)
                       console.log("Selected value:", value);
                       console.log("idCustomer:", idCustomer);
-                      
+
                     }}>
 
                     <option value="">-Sleccione Cliente-</option>
@@ -592,7 +601,15 @@ export const Cart = () => {
                                   </div>
                                   <div className="cantidad">
                                     <small>Cantidad</small>
+
+                                    {/* {setQuantityProd(producto.quantity)} */}
+
+                                    {/* <p>{quantityProd}</p> */}
                                     <p>{producto.quantity}</p>
+                                    <div className="d-flex flex-row justify-content-center align-items-center ">
+                                      <button className="" onClick={() => decrementQuantity(index)}><i className="bi bi-dash-lg"></i></button>
+                                      <button className="" onClick={() => incrementQuantity(index)}><i className="bi bi-plus-lg"></i></button>
+                                    </div>
                                   </div>
                                   <div className="precio">
                                     <small>Precio</small>
@@ -602,12 +619,11 @@ export const Cart = () => {
                                     <small>Subtotal</small>
                                     {/* <p>$ {producto.productData.precio * producto.quantity}</p> */}
                                     <p>$
-                                      {console.log(producto.productData.precio)}
+                                      {/* {console.log(producto.productData.precio)}
                                       {console.log(producto.size ? producto.size.precio : 0)}
                                       {console.log(producto.selectedRevolcado ? producto.selectedRevolcado.precio : 0)}
                                       {console.log(producto.ingredientesExtra.length > 0 ? producto.ingredientesExtra.reduce((acc, prod) => acc + prod.precio, 0) : 0)}
-                                      {console.log(producto.quantity)}
-                                      {console.log('vvvvvvvvvvvvvvvvvvvvvvvvvv')}
+                                      {console.log(producto.quantity)} */}
                                       {
                                         //  carrito.reduce((acc, producto) => acc + 
                                         ((producto.productData.precio) +
