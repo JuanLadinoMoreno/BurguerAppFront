@@ -467,7 +467,7 @@
 
             
             width: 100%;
-            gap: 10px;
+            // gap: 10px;
             
             .container {
                 max-width: 130px;
@@ -491,12 +491,26 @@
                 font-weight: 600;
                 padding: 0 5px;
                 text-transform: uppercase;
+                letter-spacing: .05em;
+
+                
             }
         }
 
         a {
-            max-width: 140px;
+            // max-width: 140px;
+            padding: 5px;
             color: $color-primero;
+            
+            img{
+                max-width: 70px;
+            }
+
+            // p:hover {
+            //     border: 1px solid rgba($color-segundo, 0.8);
+            //     border-radius: 10px;
+            // }
+            
         }
 
         .prodCant {
@@ -516,8 +530,9 @@
     
     .dvProductos {
         display: grid;
+        justify-content: center;
         // grid-template-columns: repeat(5, 220px);
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(220px, 250px));
         padding: 0 50px;
         gap: 30px;
         align-content: center;
@@ -556,4 +571,12 @@
         font-family: $font-primera;
         font-size: 30px;
     }
+}
+
+.catSelectActive{
+    background:  rgba($color-segundo, 0.7);
+    color: #FFF !important;
+    font-weight: 100 !important;
+    // border: 1px solid rgba($color-segundo, 0.8);
+    border-radius: 10px;    
 }

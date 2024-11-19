@@ -1,6 +1,6 @@
 
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useGetCategories } from '../../../Hooks/useProducts';
 import { CarContext } from '../../../context/CarContext';
 import AuthContext from '../../../context/AuthContext';
@@ -9,7 +9,30 @@ export default function MenuProducts() {
     const { categories, isLoading } = useGetCategories();
     
     const { count, idCard, isEdit } = useContext(CarContext);
-    const {  } = useContext(AuthContext);
+    
+
+    const location = useLocation(); // Hook para obtener la ruta actual
+
+    // Estado para la categoría seleccionada, inicializado desde localStorage si existe
+    const [selectedCategory, setSelectedCategory] = useState(
+        () => localStorage.getItem('selectedCategory') || null
+    );
+
+    // Actualiza la categoría seleccionada en el estado y en localStorage
+    const handleCategoryClick = (cateId) => {
+        setSelectedCategory(cateId);
+        localStorage.setItem('selectedCategory', cateId);
+    };
+
+    // Verifica si la ruta es "/menu" para limpiar la selección de categoría
+    useEffect(() => {
+        if (location.pathname === '/menu' || location.pathname === '/cart') {
+            setSelectedCategory(null);
+            localStorage.removeItem('selectedCategory');
+        }
+    }, [location.pathname]); // Ejecuta el efecto cada vez que cambia la ruta
+
+    
 
     // console.log('categories', categories);
 
@@ -46,27 +69,20 @@ export default function MenuProducts() {
 
                     <ul className="ulMenu " >
 
-                        {/* <div className="container "> */}
-
-
-
-                            {/* <Link to='/menu' >
-                                <img src="../../public/img/bgTripl.png" alt="" className='w-50' />
-                                <li className="btn-prin btnMenu btnMenuProducto">
-                                    Todos los productos
-                                </li>
-                            </Link> */}
-
                             {
 
                                 categories.map((cate) => {
                                     return (
                                         <>
-                                            <div key={cate.ids} className="container d-flex flex-wrap flex-column justify-content-center align-items-between gap-2 text-center">
+                                            <div 
+                                                key={cate.ids} 
+                                                className=" container d-flex flex-wrap flex-column justify-content-center align-items-between gap-2 text-center"
+                                                onClick={() => handleCategoryClick(cate.ids)} >
+                                                {/* onClick={() => setSelectedCategory(cate.ids)}> */}
                                             
-                                            <Link key={cate.ids} to={`/menu/category/${cate.ids}`} >
+                                            <Link   key={cate.ids} to={`/menu/category/${cate.ids}`} >
                                                 <img src={cate.thumbnail} alt="" className='w-100' />
-                                                <p>{cate.nombre}</p>
+                                                <p className={`p-2 mt-2 ${selectedCategory === cate.ids ? 'catSelectActive' : ''}`} >{cate.nombre}</p>
                                                 {/* <li className="btn-transparent btnMenu btnMenuProducto">
                                                     {cate.nombre}
 
@@ -78,7 +94,6 @@ export default function MenuProducts() {
                                     )
                                 })
                             }
-                        {/* </div> */}
                     </ul>
 
 

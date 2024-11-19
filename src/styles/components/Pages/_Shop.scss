@@ -110,9 +110,9 @@
 .toastAgregarP {
     @include dFlex(space-around, center, row nowrap);
     background: linear-gradient(270deg, #F28705 3.07%, #F2CB05 77.98%);
-    width: 300px;
-    height: 100px;
-    font-size: 22px;
+    font-size: 18px;
     text-align: center;
     border-radius: 10px;
+    color: rgba($color-primero, 0.8);
+    // font-weight: 500 !important;
 }
