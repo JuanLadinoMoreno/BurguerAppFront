@@ -93,6 +93,7 @@
 }
 
 .main {
+    font-family: $font-tercera;
     height: 100vh;
     // display: block;
     min-height: 100vh;
@@ -118,6 +119,7 @@
     
     // box-shadow: rgba($color-segundo, 0.25) 0px 50px 100px -20px, rgba($color-segundo, 0.3) 0px 30px 60px -30px;
     border-right: 2px solid rgba($color-segundo, 0.2);
+    font-family: $font-tercera;
     
     @include Tablet{
         // background-color: rgba($color-segundo, 0.45);
@@ -189,7 +191,7 @@ a.sidebar-link:hover {
 .sidebar-item {
     position: relative;
     border-radius: 7px;
-    border-top: 1px solid $color-segundo;
+    border-top: 1px solid rgba($color-segundo, 0.3);
 }
 
 //fondo de submenu

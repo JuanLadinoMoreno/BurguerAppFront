@@ -104,7 +104,7 @@ function Events() {
                 }
             </section>
 
-            <h2 className='title2'>Paquetes</h2>
+            <h2 className='title2'>Nuestros Paquetes</h2>
 
             <div className="gridContainerCa container mt-5">
                 <div className="gridContainerCa__itemCa">
@@ -170,6 +170,17 @@ function Events() {
                 </div>
             </div>
 
+            <h2 className='title2'>Invítanos a tus mejores eventos</h2>
+
+            <div className='h-50'>
+
+            <div className="sec0">
+                <div className="sec1"></div>
+                <div className="sec2"></div>
+                <div className="sec3"></div>
+                <div className="sec4"></div>
+            </div>
+            </div>
 
             <h2 className='title2'>Ubicación</h2>
 
@@ -178,42 +189,14 @@ function Events() {
                 <div className="row d-flex justify-content-center align-items-center mb-4">
 
                     <div className=' d-flex flex-column border-warning m-3 border-2 border-opacity-50 shadow-lg rounded-4' style={{ 'width': '100%', 'max-width': '26rem' }}>
-                        
-                        <MapContainer style={{ height: "380px", zIndex:'-1' }} center={[18.9051, -98.4395]} zoom={17} scrollWheelZoom={false}>
+
+                        <MapContainer style={{ height: "380px", zIndex: '-1' }} center={[18.9051, -98.4395]} zoom={17} scrollWheelZoom={false}>
                             <TileLayer
                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             />
                             <Marker position={[18.9051, -98.4395]}>
-                            {/* 18.9099878,-98.4362052 */}
-                                <Popup>
-                                Burguer Robles. <br /> Centro.
-                                </Popup>
-                            </Marker>
-                        </MapContainer>
-
-                        <div className='d-flex justify-content-center align-items-start flex-column gap-2 m-2'>
-                            <div className='d-flex justify-content-start align-items-center gap-3 m-2'>
-                                <a href="" className="d-flex justify-content-center align-items-center border border-warning border-3 p-1 rounded-5 fs-4 text-warning" style={{width:'40px', height:'40px'}}> <i className="bi bi-geo-alt"></i></a>
-                                <p className='fs-5 my-2'>Av. Morelos 505, Col Centro </p>
-                            </div>
-                            <div className='d-flex justify-content-start align-items-center gap-3 m-2'>
-                                <a href="" className="d-flex justify-content-center align-items-center border border-warning border-3 p-1 rounded-5 fs-4 text-warning" style={{width:'40px', height:'40px'}}> <i className="fab fa-whatsapp"></i></a>
-                                <p className='fs-5 my-2'>+52-584-66-58 </p>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                    <div className=' d-flex flex-column border-warning m-3 border-2 border-opacity-50 shadow-lg rounded-4' style={{ 'width': '100%', 'max-width': '26rem' }}>
-                        
-                        <MapContainer style={{ height: "380px", zIndex:'-1' }} center={[18.9099,-98.4362]} zoom={17} scrollWheelZoom={false}>
-                            <TileLayer
-                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            />
-                            <Marker position={[18.9099,-98.4362]}>
+                                {/* 18.9099878,-98.4362052 */}
                                 <Popup>
                                     Burguer Robles. <br /> Centro.
                                 </Popup>
@@ -222,11 +205,11 @@ function Events() {
 
                         <div className='d-flex justify-content-center align-items-start flex-column gap-2 m-2'>
                             <div className='d-flex justify-content-start align-items-center gap-3 m-2'>
-                                <a href="" className="d-flex justify-content-center align-items-center border border-warning border-3 p-1 rounded-5 fs-4 text-warning" style={{width:'40px', height:'40px'}}> <i className="bi bi-geo-alt"></i></a>
+                                <a href="" className="d-flex justify-content-center align-items-center border border-warning border-3 p-1 rounded-5 fs-4 text-warning" style={{ width: '40px', height: '40px' }}> <i className="bi bi-geo-alt"></i></a>
                                 <p className='fs-5 my-2'>Av. Morelos 505, Col Centro </p>
                             </div>
                             <div className='d-flex justify-content-start align-items-center gap-3 m-2'>
-                                <a href="" className="d-flex justify-content-center align-items-center border border-warning border-3 p-1 rounded-5 fs-4 text-warning" style={{width:'40px', height:'40px'}}> <i className="fab fa-whatsapp"></i></a>
+                                <a href="" className="d-flex justify-content-center align-items-center border border-warning border-3 p-1 rounded-5 fs-4 text-warning" style={{ width: '40px', height: '40px' }}> <i className="fab fa-whatsapp"></i></a>
                                 <p className='fs-5 my-2'>+52-584-66-58 </p>
                             </div>
                         </div>
@@ -234,7 +217,35 @@ function Events() {
 
                     </div>
 
-                   
+                    <div className=' d-flex flex-column border-warning m-3 border-2 border-opacity-50 shadow-lg rounded-4' style={{ 'width': '100%', 'max-width': '26rem' }}>
+
+                        <MapContainer style={{ height: "380px", zIndex: '-1' }} center={[18.9099, -98.4362]} zoom={17} scrollWheelZoom={false}>
+                            <TileLayer
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
+                            <Marker position={[18.9099, -98.4362]}>
+                                <Popup>
+                                    Burguer Robles. <br /> Centro.
+                                </Popup>
+                            </Marker>
+                        </MapContainer>
+
+                        <div className='d-flex justify-content-center align-items-start flex-column gap-2 m-2'>
+                            <div className='d-flex justify-content-start align-items-center gap-3 m-2'>
+                                <a href="" className="d-flex justify-content-center align-items-center border border-warning border-3 p-1 rounded-5 fs-4 text-warning" style={{ width: '40px', height: '40px' }}> <i className="bi bi-geo-alt"></i></a>
+                                <p className='fs-5 my-2'>Av. Morelos 505, Col Centro </p>
+                            </div>
+                            <div className='d-flex justify-content-start align-items-center gap-3 m-2'>
+                                <a href="" className="d-flex justify-content-center align-items-center border border-warning border-3 p-1 rounded-5 fs-4 text-warning" style={{ width: '40px', height: '40px' }}> <i className="fab fa-whatsapp"></i></a>
+                                <p className='fs-5 my-2'>+52-584-66-58 </p>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
                 </div>
 
                 {/* <div className="row">

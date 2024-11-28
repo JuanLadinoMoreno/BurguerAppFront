@@ -30,14 +30,14 @@ function NavDash() {
 
           <li className="sidebar-item">
             <Link to={"/menu"} className="sidebar-link">
-              <i className="bi bi-clipboard2-plus"></i>
+              <i className="bi bi-clipboard2-plus fs-4"></i>
               <span>Crear orden</span>
             </Link>
           </li>
 
           <li className="sidebar-item">
             <Link to={"/dash/carts/user"} className="sidebar-link">
-              <i className="bi bi-clipboard2-data"></i>
+              <i class="fa-regular fa-rectangle-list fs-4"></i>
               <span>Mis Ordenes</span>
             </Link>
           </li>
@@ -46,7 +46,7 @@ function NavDash() {
 
           <li className="sidebar-item">
             <Link to={"/menu/products"} className="sidebar-link">
-              <i className="bi bi-clipboard2-data"></i>
+              <i class="fa-solid fa-burger fs-4"></i>
               <span>Productos</span>
             </Link>
 
@@ -55,7 +55,7 @@ function NavDash() {
 
           <li className="sidebar-item">
             <Link to={"/dash/users"} className="sidebar-link">
-              <i className="bi bi-clipboard2-data"></i>
+            <i class="fa-regular fa-user fs-4"></i>
               <span>Usuarios</span>
             </Link>
 
@@ -63,7 +63,7 @@ function NavDash() {
 
           <li className="sidebar-item">
             <Link to={"/dash/customers"} className="sidebar-link">
-              <i className="bi bi-clipboard2-data"></i>
+            <i class="fa-solid fa-person fs-4"></i>
               <span>Clientes</span>
             </Link>
 
@@ -72,8 +72,8 @@ function NavDash() {
           <li className="sidebar-item">
             <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
               data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-              <i className="fab fa-youtube"></i>
-              <span>Auth</span>
+              <i className="bi bi-clipboard2-data fs-4"></i>
+              <span>Pedidos</span>
             </a>
             <ul id="auth" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
               <li className="sidebar-item">
