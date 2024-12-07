@@ -87,13 +87,13 @@
 //     overflow: hidden; /* Evita que el body tenga scroll */
 //   }
 .wrapper {
+    font-family: $font-tercera;
     display: flex;
     height: 100%;
     // overflow-x: hidden;
 }
 
 .main {
-    font-family: $font-tercera;
     height: 100vh;
     // display: block;
     min-height: 100vh;
@@ -112,8 +112,8 @@
     min-width: 75px;
     z-index: 1000;
     transition: all .25s ease-in-out;
-    // background-color: rgba($color: $color-primero, $alpha: 0.9);
-    background-color: rgba($color-segundo, 0.10);
+    background-color: rgba($color-segundo, 0.01);
+    // background-color: rgba(#FFF, 0.98);
     display: flex;
     flex-direction: column;
     
@@ -122,12 +122,32 @@
     font-family: $font-tercera;
     
     @include Tablet{
-        // background-color: rgba($color-segundo, 0.45);
-        // height: 100%;
-        // position: absolute;
+        background-color: rgba(#FFF, 0.98);
+        // height: 100vh;
+        position: absolute;
         z-index: 200;
-
+        width: 0;
+        min-width: 0;
+    
+        &.expand {
+          width: 2210px;
+          min-width: 2210px;
+        }
+        
     }
+
+
+    // @media (max-width: 768px) {
+    //     position: absolute;
+    //     z-index: 200;
+    //     width: 0;
+    //     min-width: 0;
+    
+    //     &.expand {
+    //       width: 220px;
+    //       min-width: 220px;
+    //     }
+    //   }
 }
 
 .sidebar.expand {
@@ -161,6 +181,13 @@
 .sidebar:not(.expand) .sidebar-logo,
 .sidebar:not(.expand) a.sidebar-link span {
     display: none;
+}
+
+.sidebar:not(.expand) .sidebar-nav{
+    @include Tablet{
+        display: none;
+
+    }
 }
 
 .sidebar-nav {

@@ -34,8 +34,6 @@ export default function MenuProducts() {
 
     
 
-    // console.log('categories', categories);
-
 
 
     return (

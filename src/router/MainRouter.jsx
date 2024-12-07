@@ -26,6 +26,7 @@ import Users from '../components/Dash/Pages/Users.jsx'
 import CreateUser from '../components/Dash/Pages/CreateUser.jsx'
 import Customers from '../components/Dash/Pages/Customers.jsx'
 import CreateCustomer from '../components/Dash/Pages/CreateCustomer.jsx'
+import Report from '../components/Dash/Pages/Report.jsx'
 
 // import login from '../components/Pages/Login/login.jsx'
 
@@ -74,10 +75,9 @@ export default function MainRouter() {
           {/* Customers */}
           <Route path='/dash/customers' element={<Customers />} />
           <Route path='/dash/addcustomer' element={<CreateCustomer />} />
-
-          {/* <Route path='/dash/index' element={<Index />} /> */}
-
-
+          
+          <Route path='/dash/report' element={<Report />} />
+          
 
         </Route>
 

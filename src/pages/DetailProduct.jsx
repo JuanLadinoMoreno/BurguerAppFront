@@ -16,23 +16,7 @@ export default function DetailProduct() {
     };
   }, []);
 
-  // Ejemplo de uso, pasando un producto específico
-const product = {
-  _id: '650dba3063b4664603416295',
-  nombre: 'Hotdog Tradicional',
-  tipo: 'hotdog',
-  esRevolcadoDisponible: true,
-  saboresRevolcados: [
-    { nombre: 'Hawaiano', precioAdicional: 35 },
-    { nombre: 'Campiñones', precioAdicional: 45 },
-    { nombre: 'Mexicano', precioAdicional: 40 }
-  ],
-  ingredientesExtras: [
-    { nombre: 'Queso Extra', precio: 10 },
-    { nombre: 'Tocino', precio: 15 }
-  ],
-  precioBase: 20
-};
+
   return (
     <>
 

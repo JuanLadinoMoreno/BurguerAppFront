@@ -11,7 +11,7 @@ function NavDash() {
   };
   return (
     <>
-      <aside id="sidebar " className={`sidebar ${isExpanded ? 'expand' : ''} `}>
+      <aside id="sidebar " className={`sidebar ${isExpanded ? '' : 'expand'} `}>
         {/* <aside id="sidebar " className={`sidebar ${isExpanded ? 'expand' : ''}  z-3 position-absolute`}>  para q salga en frente */}
         {/* <aside id="sidebar " className="d-flex flex-column navbar navbar-vertical-aside navbar-vertical navbar-vertical-fixed bg-danger"> */}
         {/* <aside id="sidebar " className="d-flex flex-column navbar navbar-vertical-aside navbar-vertical navbar-vertical-fixed bg-danger"> */}
@@ -37,7 +37,7 @@ function NavDash() {
 
           <li className="sidebar-item">
             <Link to={"/dash/carts/user"} className="sidebar-link">
-              <i class="fa-regular fa-rectangle-list fs-4"></i>
+              <i className="fa-regular fa-rectangle-list fs-4"></i>
               <span>Mis Ordenes</span>
             </Link>
           </li>
@@ -46,7 +46,7 @@ function NavDash() {
 
           <li className="sidebar-item">
             <Link to={"/menu/products"} className="sidebar-link">
-              <i class="fa-solid fa-burger fs-4"></i>
+              <i className="fa-solid fa-burger fs-4"></i>
               <span>Productos</span>
             </Link>
 
@@ -55,7 +55,7 @@ function NavDash() {
 
           <li className="sidebar-item">
             <Link to={"/dash/users"} className="sidebar-link">
-            <i class="fa-regular fa-user fs-4"></i>
+            <i className="fa-regular fa-user fs-4"></i>
               <span>Usuarios</span>
             </Link>
 
@@ -63,10 +63,17 @@ function NavDash() {
 
           <li className="sidebar-item">
             <Link to={"/dash/customers"} className="sidebar-link">
-            <i class="fa-solid fa-person fs-4"></i>
+            <i className="fa-solid fa-person fs-4"></i>
               <span>Clientes</span>
             </Link>
 
+          </li>
+
+          <li className="sidebar-item">
+            <Link to={"/dash/report"} className="sidebar-link">
+            <i className="fa-solid fa-chart-line fs-4"></i>
+              <span>Reporte ventas</span>
+            </Link>
           </li>
 
           <li className="sidebar-item">
