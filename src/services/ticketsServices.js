@@ -30,6 +30,15 @@ export async function getAllSales(){
     }
 }
 
+export async function getSalesforMonth(){
+    try {
+        return await axios.get(`tickets/salesformonth`)
+        
+    } catch (error) {
+        console.log('url not found' , error)
+    }
+}
+
 
 // export async function getProductByCategory(id){
 //     try {

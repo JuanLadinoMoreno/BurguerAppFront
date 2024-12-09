@@ -2,12 +2,14 @@ import NavDash from '../components/NavDash'
 import DataUser from '../components/DataUser'
 import BannerSells from '../components/BannerSells'
 import TableSales from '../components/TableSales'
-import { useGetAllAmount, useGetAlltickets } from '../../../Hooks/useSales'
+import Graphics from '../components/Graphics'
+import { useGetAllAmount, useGetAlltickets, useGetSalesForMonth } from '../../../Hooks/useSales'
 
 function Report() {
     
     const {allSales, isLoading} = useGetAlltickets()
     const {totalSales, monthsSales} = useGetAllAmount()
+    const {salesForMonth} = useGetSalesForMonth()
     
     return (
         <>
@@ -19,6 +21,7 @@ function Report() {
                     <DataUser />
                     <div className="container">
                     <BannerSells totalSales={totalSales} monthsSales={monthsSales} allSales={allSales}/>
+                    <Graphics salesForMonth={salesForMonth}/>
                     <TableSales allSales={allSales} isLoading={isLoading} />
                     
                         

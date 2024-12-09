@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllSales, getMonthSales, getTotalAmount } from "../services/ticketsServices"
+import { getAllSales, getMonthSales, getSalesforMonth, getTotalAmount } from "../services/ticketsServices"
 
 export const useGetAlltickets = () => {
     const [allSales, setAllSales] = useState([])
@@ -44,6 +44,7 @@ export const useGetAllAmount = () => {
         try {
             const totalSalesR = await getTotalAmount()
             const monthSalesR = await getMonthSales()
+            console.log('totalSalesR', totalSalesR);
             setTotalSales(totalSalesR.data.payload.lenght == 0 ? 0 : totalSalesR.data.payload[0].total)
             setMonthsSales(monthSalesR.data.payload.lenght == 0 ? 0 : monthSalesR.data.payload[0].total)
         } catch (error) {
@@ -60,4 +61,29 @@ export const useGetAllAmount = () => {
 
     return { totalSales, monthsSales }
 
+}
+
+export const useGetSalesForMonth = () => {
+    const [salesForMonth, setSalesForMonth] = useState([])
+
+
+    const getSalesMonth = async () => {
+        try {
+            const resp = await getSalesforMonth()
+            console.log('resp', resp);
+            setSalesForMonth(resp.data.payload)
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+        useEffect(() => {
+
+            getSalesMonth();
+            console.log('salesForMonth', salesForMonth);
+
+
+        }, [])
+
+    return { salesForMonth }
 }
