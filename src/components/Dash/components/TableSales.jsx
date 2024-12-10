@@ -103,12 +103,12 @@ function TableSales({ allSales, isLoading}) {
 
         const data = allSales.map(ticket => {
             return ({
-                codigo: ticket.code,
+                Codigo: ticket.code,
                 // user: ticket.user.firstName + ticket.user.lastName,
-                vendedor: ticket.user != null ? ticket.user.firstName + ticket.user.lastName : '',
-                cliente: ticket.customer != null ? ticket.customer.firstName + ticket.customer.lastName : '',
+                Vendedor: ticket.user != null ? ticket.user.firstName + ticket.user.lastName : '',
+                Cliente: ticket.customer != null ? ticket.customer.firstName + ticket.customer.lastName : '',
                 EmailCliente: ticket.customer != null ? ticket.customer.email : '',
-                FechaVenta: ticket.purchase_datetime + ticket.purchase_datetime,
+                FechaVenta: new Date(ticket.purchase_datetime).toLocaleDateString('es-ES'),
                 Monto: ticket.amount,
             })
         })
@@ -135,7 +135,7 @@ function TableSales({ allSales, isLoading}) {
 
     return (
         <>
-            <div className=" p-1">
+            <div className=" p-1 mt-3">
                 <h3 className='card-title mb-2 p-1'>Tickets de ventas</h3>
                 <div className={`container row ${isLoading ? 'disabled' : ''}`}>
                     <div className='col-lg-4 col-md-6  '>

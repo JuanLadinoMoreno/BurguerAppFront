@@ -39,6 +39,45 @@ export async function getSalesforMonth(){
     }
 }
 
+// export async function getSalesForCategoriesMonth(){
+//     try {
+//         return await axios.get(`tickets/salescategorymonth`)
+        
+//     } catch (error) {
+//         console.log('url not found' , error)
+//     }
+// }
+
+// export const getSalesForCategoriesMonth = async (category) => axios.get(`/tickets/salescategorymonth`, { category: category });
+
+export async function getSalesForCategoriesMonth(cid){
+    try {
+        return await axios.get(`tickets/salescategorymonth/${cid}`);
+        
+    } catch (error) {
+        console.log('url not found');
+    }
+    
+}
+
+export async function mmmgetSalesForCategoriesMonth(category){
+    try{
+        const res = await axios({
+            url: 'http://localhost:8080/api/tickets/salescategorymonth',
+            method: 'GET',
+            data: { category: category },
+            // data: cart ,
+            // withCredentials: true
+        })
+        // console.log('true');
+        return res
+    }catch(error){
+        // console.log('false');
+        console.log('Erroro al conextarse al servidor para obtener ventar por categoria', error);
+        throw error
+        // return false
+    }
+}
 
 // export async function getProductByCategory(id){
 //     try {

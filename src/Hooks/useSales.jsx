@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllSales, getMonthSales, getSalesforMonth, getTotalAmount } from "../services/ticketsServices"
+import { getAllSales, getMonthSales, getSalesForCategoriesMonth, getSalesforMonth, getTotalAmount } from "../services/ticketsServices"
 
 export const useGetAlltickets = () => {
     const [allSales, setAllSales] = useState([])
@@ -44,7 +44,7 @@ export const useGetAllAmount = () => {
         try {
             const totalSalesR = await getTotalAmount()
             const monthSalesR = await getMonthSales()
-            console.log('totalSalesR', totalSalesR);
+
             setTotalSales(totalSalesR.data.payload.lenght == 0 ? 0 : totalSalesR.data.payload[0].total)
             setMonthsSales(monthSalesR.data.payload.lenght == 0 ? 0 : monthSalesR.data.payload[0].total)
         } catch (error) {
@@ -70,20 +70,35 @@ export const useGetSalesForMonth = () => {
     const getSalesMonth = async () => {
         try {
             const resp = await getSalesforMonth()
-            console.log('resp', resp);
             setSalesForMonth(resp.data.payload)
         } catch (error) {
             console.log(error);
         }
 
     }
-        useEffect(() => {
-
-            getSalesMonth();
-            console.log('salesForMonth', salesForMonth);
-
-
-        }, [])
+    useEffect(() => {
+        getSalesMonth();
+    }, [])
 
     return { salesForMonth }
+}
+
+export const useGetSalesForCategoryMonth = (category) => {
+    const [salesCategoryMonth, setSalesCategoryMonth] = useState([])
+
+
+    const getSalesCategoryMonth = async () => {
+        try {
+            const resp = await getSalesForCategoriesMonth(category)
+            setSalesCategoryMonth(resp.data.payload)
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+    useEffect(() => {
+        getSalesCategoryMonth();
+    }, [category])
+
+    return { salesCategoryMonth }
 }
