@@ -16,7 +16,7 @@ function Customers() {
 
                 <section className="contMen d-block top-0 w-100">
                 <DataUser />
-                <div className="container">
+                <div className="container-lg">
                 <TableCustomers usersData={usersData} setUsersData={setUsersData} isLoading={isLoading} />
                 {/* <TableProducts productsData={productsData} setProductsData={setProductsData} isLoading={isLoading}/> */}
                 {/* <TableUsers usersData={usersData} setUsersData={setUsersData} isLoading={isLoading}/> */}

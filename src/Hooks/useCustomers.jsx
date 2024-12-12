@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createCustomer, deleteCustomer, getCustomers, updateCustomer } from "../services/customersService";
+import { createCustomer, deleteCustomer, getCustomerCarts, getCustomers, updateCustomer } from "../services/customersService";
 
 export const useGetCustomers = () => {
     const [usersData, setUsersData] = useState([])
@@ -83,4 +83,50 @@ export const useDeleteCustomer = async (id) => {
         console.log(error);
 
     }
+}
+
+// export const useGetCustomerCarts = async (id) => {
+//     const [cartsCustomer, setCartsCustom] = useState([])
+//     try {
+
+//         const resp = await getCustomerCarts(id)
+//         setCartsCustom(resp)
+        
+//     } catch (error) {
+//         console.log(error);
+        
+//     }
+//     return  {cartsCustomer}
+// }
+
+export const useGetCustomerCarts = (cuid) => {
+    const [cartsCustomer, setCartsCustomer] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    
+    
+    
+    useEffect(() => {
+        
+        const customerCarts = async (cuid) => {
+            try {
+                
+                const resp = await getCustomerCarts(cuid);
+                
+                setCartsCustomer(resp.data.payload)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        
+        
+        setTimeout(() => {
+            
+            customerCarts(cuid)
+            
+            setIsLoading(false);
+        }, 1000);
+        
+    }, []);
+    
+    return { cartsCustomer, isLoading }
 }

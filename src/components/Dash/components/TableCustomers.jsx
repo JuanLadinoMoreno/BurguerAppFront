@@ -207,6 +207,8 @@ function TableCustomers({ usersData, setUsersData, isLoading }) {
 
             <button className='btn btn-danger m-1' onClick={() => {deleteCustomer(row._id)}}> <i className="bi bi-trash"></i></button>
             <button className='btn btn-warning text-white m-1' data-bs-toggle="modal" data-bs-target="#modalCustomer" onClick={() => openModal(row)}> <i className="bi bi-pencil"></i></button>
+            <Link className='btn btn-primary text-white m-1' to={`/dash/customer/${row._id}`} > <i className="fa-solid fa-list-ol"></i></Link>
+            {/* to={`/menu/item/${products._id}`} */}
           </div>
         </div>
       ),
@@ -243,7 +245,8 @@ function TableCustomers({ usersData, setUsersData, isLoading }) {
         data={usersDataCopy}
         // defaultSortFieldId={1}
         // selectableRows
-        // onRowDoubleClicked={changeDobleClicRow}
+        // onRowDoubleClicked={(row) => openModal(row)}
+        // onRowDoubleClicked={(e) => {console.log('jkjhkjhkjhkjhkjhk',e)}}
         // pointerOnHover='true'
         // highlightOnHover= 'true'
         pagination
