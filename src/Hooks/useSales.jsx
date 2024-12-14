@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { getAllSales, getMonthSales, getSalesForCategoriesMonth, getSalesforMonth, getTotalAmount } from "../services/ticketsServices"
+import { getAllCarts } from "../services"
 
 export const useGetAlltickets = () => {
     const [allSales, setAllSales] = useState([])
@@ -101,4 +102,31 @@ export const useGetSalesForCategoryMonth = (category) => {
     }, [category])
 
     return { salesCategoryMonth }
+}
+
+export const useGetAllCarts = () => {
+    const [allCarts, setAllCarts] = useState([])
+    const [isLoadingCart, setIsLoadingCart] = useState(true)
+
+    useEffect(() => {
+
+        const getTickets = async () => {
+            try {
+                const resp = await getAllCarts();
+                setAllCarts(resp.data.payload)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        setTimeout(() => {
+
+            getTickets()
+
+            setIsLoadingCart(false);
+        }, 1500);
+
+    }, []);
+
+    return { allCarts, isLoadingCart }
 }

@@ -1,6 +1,16 @@
 import axiosD from "./axios";
 
 
+export async function getAllCarts(){
+    try {
+        return await axiosD.get(`carts/`);
+        
+    } catch (error) {
+        console.log('url not found');
+    }
+    
+}
+
 export async function getCartsByUserId(uid){
     try {
         return await axiosD.get(`carts/user/${uid}`);
