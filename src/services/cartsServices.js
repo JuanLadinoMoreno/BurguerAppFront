@@ -31,6 +31,8 @@ export async function getCartsById(cid){
     
 }
 
+export const updCartToCanceled = async (cid) => axiosD.put(`/carts/cancel/${cid}`);
+
 export async function UpdateCart(cid, cart, total){
     try{
         const res = await axiosD({

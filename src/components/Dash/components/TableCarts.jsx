@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { endPurchase, getCartsById, getCartsByUserId } from '../../../services/cartsServices'
+import { endPurchase, getCartsById, getCartsByUserId, updCartToCanceled } from '../../../services/cartsServices'
 import { useAuth } from '../../../context/AuthContext'
 import NavDash from './NavDash'
 import { Link, useParams } from 'react-router-dom'
@@ -79,6 +79,64 @@ export const TableCarts = () => {
 
     }
 
+    const changeStateCanceled = async (cid) => {
+        const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+        try {
+
+                const result = await Swal.fire({
+
+                    title: "Seguro desea cancelar la orden?",
+                    // text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Aceptar",
+                    cancelButtonText: "Cancelar"
+                })
+              
+
+                if (result.isConfirmed) {
+                    try {
+                        const resp =  await updCartToCanceled(cid)
+                        console.log('resp', resp);
+                        
+                        if (resp) {
+                            // Swal.fire("Orden cancelada","","success")
+                            Swal.fire({
+                                title: 'Acción realizada con éxito',
+                                text: 'Serás redirigido en unos momentos...',
+                                icon: 'success',
+                                timer: 1800, 
+                                showConfirmButton: false, // No mostrar el botón de confirmación
+                            });
+                    
+                            // Espera unos minutos antes de redirigir (en este ejemplo, 2 minutos = 120000 ms)
+                            await delay(1500);
+                            window.location.href = '/menu'
+                        }else{
+                            Swal.fire("No fue posible cancdelar la orden","","error")
+                        }
+                    } catch (error) {
+                        if (error.response) {
+                            Swal.fire("Problemas al cancelar la orden","","error")
+                            console.log('error', error);
+                            
+                        } else {
+                            console.log('error', error);
+                            Swal.fire("Error al cancelar orden", "Error desconocido", "danger");
+                        }
+                    }
+
+                }
+              
+
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+
     return (
 
 
@@ -86,171 +144,178 @@ export const TableCarts = () => {
             <div className="wrapper ">
                 <NavDash />
                 <div className="main">
-                <div className="contMen " >
+                    <div className="contMen " >
 
 
-{/* <div className=" d-flex flex-row-reverse p-3 border-bottom border-warning border-2 w-100">
+                        {/* <div className=" d-flex flex-row-reverse p-3 border-bottom border-warning border-2 w-100">
     <Link to={""}>
         <i className="bi bi-person-x p-2"> LogOut </i>
     </Link>
 </div> */}
-<DataUser />
+                        <DataUser />
 
 
-{
-    // isLoading ?
+                        {
+                            // isLoading ?
 
-    //     <l-dot-spinner
-    //         size="80"
-    //         speed="1.1"
-    //         color="#0F1854"
-    //     >
-    //     </l-dot-spinner> :
-
-
-    <div className="contCarr container">
-        <h2 className='text-center'>Ordenes</h2>
-        <div id="productsCarr" className="productsCarr ">
-            {
-
-                !CartsByUser.length > 0 ?
-                    <h2>No hay ordenes creadas</h2> :
-                    (
-
-                        // roblesAdmin89
-                        // roblesAdmin89.$
+                            //     <l-dot-spinner
+                            //         size="80"
+                            //         speed="1.1"
+                            //         color="#0F1854"
+                            //     >
+                            //     </l-dot-spinner> :
 
 
-          CartsByUser.map((cart) => {
-                            return (
-                                
-                                <div className="prodCarr" key={cart.id}>
-                                    {console.log('----------------------', cart ) }
-                                    <div className="titu">
-                                        <small>CartId</small>
-                                        <p>
-                                            {
-                                                cart.id.substr(-4, 4)                                                            
-                                            }
-                                        </p>
-                                    </div>
-                                    <div className="cantidad">
-                                        <small>Cliente</small>
-                                        <p>
-                                            {console.log('cart.customer', cart.customer)}
-                                            {
-                                                !cart.customer ? 
-                                                    'Sin cliente' : 
-                                                    (cart.customer.firstName.toUpperCase() + ' ' + cart.customer.lastName.toUpperCase() )
-                                            }
-                                        </p>
-                                    </div>
-                                    <div className="cantidad">
-                                        <small>Status</small>
-                                        <p>{cart.status}</p>
-                                    </div>
-                                    <div className="precio">
-                                        <small>Productos</small>
-                                        {/* {console.log('cart.products------', cart.products)} */}
-                                        {
-                                            cart.products.map((producto) => {
-                                                return (
-                                                    // !product.id.nombre ? (
+                            <div className="contCarr container">
+                                <h2 className='text-center'>Ordenes</h2>
+                                <div id="productsCarr" className="productsCarr ">
+                                    {
 
-                                                    <div key={producto.id} className="mb-2 border-bottom border-warning ">
-                                                        {/* <hr /> */}
-                                                        {/* {console.log('product.pid------', producto.pid)} */}
-                                                        <ul className=''>
-                                                            <li>{producto.quantity} - {producto.pid.nombre}</li>
-                                                        </ul>
-                                                        {
-                                                            producto.size != null ? <p className="text-end fst-italic text-body-secondary"><span>Tamaño: </span> <br /> {producto.size.nombre} +${producto.size.precio}</p> : null
-                                                        }
-                                                        {
-                                                            producto.selectedRevolcado != null ? <p className="text-start fst-italic text-body-secondary"> <span>Sabor revolcado: </span> <br /> {producto.selectedRevolcado.nombre} +${producto.selectedRevolcado.precio}</p> : null
-                                                        }
-                                                        {
-                                                            producto.ingredientesExtra.length > 0 ?
-                                                                <ul className="text-start fst-italic text-body-secondary">
-                                                                    <span>Ingredientes extra: </span> <br />
-                                                                    {/* <li> */}
+                                        !CartsByUser.length > 0 ?
+                                            <h2>No hay ordenes creadas</h2> :
+                                            (
+
+                                                // roblesAdmin89
+                                                // roblesAdmin89.$
+
+
+                                                CartsByUser.map((cart) => {
+                                                    return (
+
+                                                        <div className="prodCarr" key={cart.id}>
+                                                            {console.log('----------------------', cart)}
+                                                            <div className="titu">
+                                                                <small>CartId</small>
+                                                                <p>
                                                                     {
-                                                                        producto.ingredientesExtra.map(ingre => (
-
-                                                                            <li>
-                                                                                {
-                                                                                    ' - ' + ingre.nombre + ' +$' + (ingre.precio)
-                                                                                }
-
-                                                                            </li>
-
-                                                                        ))
+                                                                        cart.id.substr(-4, 4)
                                                                     }
-                                                                    {/* </li> */}
-                                                                    {/* <hr /> */}
-                                                                </ul>
-                                                                // <p> <span>Ingredientes extra: </span> <br/>
-                                                                //   {
-                                                                //      producto.ingredientesExtra.map(ingre => (
-                                                                //       ' - ' + ingre.nombre + ' +$' + (ingre.precio) 
-                                                                //     )) 
-                                                                //   }
-                                                                // </p>
+                                                                </p>
+                                                            </div>
+                                                            <div className="cantidad">
+                                                                <small>Cliente</small>
+                                                                <p>
+                                                                    {console.log('cart.customer', cart.customer)}
+                                                                    {
+                                                                        !cart.customer ?
+                                                                            'Sin cliente' :
+                                                                            (cart.customer.firstName.toUpperCase() + ' ' + cart.customer.lastName.toUpperCase())
+                                                                    }
+                                                                </p>
+                                                            </div>
+                                                            <div className="cantidad">
+                                                                <small>Status</small>
+                                                                <p>{cart.status}</p>
+                                                            </div>
+                                                            <div className="precio">
+                                                                <small>Productos</small>
+                                                                {/* {console.log('cart.products------', cart.products)} */}
+                                                                {
+                                                                    cart.products.map((producto) => {
+                                                                        return (
+                                                                            // !product.id.nombre ? (
 
-                                                                : null
-                                                        }
-                                                        {/* <p>- {product.pid.nombre}</p> */}
-                                                        {/* <p>- {product.pid ? product.pid.nombre : 'Producto no disponible'}</p> */}
-                                                        {/* <p><strong>Cantidad:</strong> {product.quantity}</p> */}
+                                                                            <div key={producto.id} className="mb-2 border-bottom border-warning ">
+                                                                                {/* <hr /> */}
+                                                                                {/* {console.log('product.pid------', producto.pid)} */}
+                                                                                <ul className=''>
+                                                                                    <li>{producto.quantity} - {producto.pid.nombre}</li>
+                                                                                </ul>
+                                                                                {
+                                                                                    producto.size != null ? <p className="text-end fst-italic text-body-secondary"><span>Tamaño: </span> <br /> {producto.size.nombre} +${producto.size.precio}</p> : null
+                                                                                }
+                                                                                {
+                                                                                    producto.selectedRevolcado != null ? <p className="text-start fst-italic text-body-secondary"> <span>Sabor revolcado: </span> <br /> {producto.selectedRevolcado.nombre} +${producto.selectedRevolcado.precio}</p> : null
+                                                                                }
+                                                                                {
+                                                                                    producto.ingredientesExtra.length > 0 ?
+                                                                                        <ul className="text-start fst-italic text-body-secondary">
+                                                                                            <span>Ingredientes extra: </span> <br />
+                                                                                            {/* <li> */}
+                                                                                            {
+                                                                                                producto.ingredientesExtra.map(ingre => (
 
-                                                    </div>
-                                                    // ) : (<p>Sin Productos</p>)
-                                                )
+                                                                                                    <li>
+                                                                                                        {
+                                                                                                            ' - ' + ingre.nombre + ' +$' + (ingre.precio)
+                                                                                                        }
 
-                                            })
-                                        }
-                                        {
-                                        }
-                                    </div>
-                                    {/* <div className="subtotal">
+                                                                                                    </li>
+
+                                                                                                ))
+                                                                                            }
+                                                                                            {/* </li> */}
+                                                                                            {/* <hr /> */}
+                                                                                        </ul>
+                                                                                        // <p> <span>Ingredientes extra: </span> <br/>
+                                                                                        //   {
+                                                                                        //      producto.ingredientesExtra.map(ingre => (
+                                                                                        //       ' - ' + ingre.nombre + ' +$' + (ingre.precio) 
+                                                                                        //     )) 
+                                                                                        //   }
+                                                                                        // </p>
+
+                                                                                        : null
+                                                                                }
+                                                                                {/* <p>- {product.pid.nombre}</p> */}
+                                                                                {/* <p>- {product.pid ? product.pid.nombre : 'Producto no disponible'}</p> */}
+                                                                                {/* <p><strong>Cantidad:</strong> {product.quantity}</p> */}
+
+                                                                            </div>
+                                                                            // ) : (<p>Sin Productos</p>)
+                                                                        )
+
+                                                                    })
+                                                                }
+                                                                {
+                                                                }
+                                                            </div>
+                                                            {/* <div className="subtotal">
                                         <small>Subtotal</small>
                                         <p>klskdjflksjdfljkljd</p>
                                     </div> */}
-                                    <div>
-                                        <small>Agregar productos</small>
-                                        <Link className="  mb-2" to={`/cart/`} onClick={() => { forEdit(cart._id) }}>
-                                            <i className="bi bi-cart-plus fs-4"></i>
-                                        </Link>
+                                                            <div>
+                                                                <small>Agregar productos</small>
+                                                                <Link className="  mb-2 " to={`/cart/`} onClick={() => { forEdit(cart._id) }}>
+                                                                    <i className="bi bi-cart-plus fs-4"></i>
+                                                                </Link>
 
-                                    </div>
+                                                            </div>
 
-                                    <div >
-                                        <small>Crear tiket</small>
-                                        <Link className=" mb-2" to={`/dash/order/${cart._id}`}>
-                                            <i className=" bi bi-ticket-perforated fs-4"></i>
-                                        </Link>
+                                                            <div >
+                                                                <small>Crear tiket</small>
+                                                                <Link className=" mb-2 " to={`/dash/order/${cart._id}`}>
+                                                                    <i className=" bi bi-ticket-perforated fs-4"></i>
+                                                                </Link>
 
-                                    </div>
+                                                            </div>
 
+                                                            <div >
+                                                                <small>Cancelar</small>
+                                                                <button className=" mb-2 " onClick={() => { changeStateCanceled(cart._id) }}>
+                                                                    <i className=" bi bi-x-circle fs-4"></i>
+                                                                </button>
 
-                                    {/* <button className="btnEliminar" onClick={() => { purchase(cart._id) }} >
+                                                            </div>
+
+                                                            {/* <button className="btnEliminar" onClick={() => { purchase(cart._id) }} >
                                         <i className="bi bi-ticket-perforated fs-3"></i>
                                     </button> */}
+                                                        </div>
+                                                    );
+                                                })
+                                            )
+                                    }
                                 </div>
-                            );
-                        })
-                    )
-            }
-        </div>
-    </div>
+                            </div>
 
 
-}
+                        }
 
-{/* <BanEventos /> */}
+                        {/* <BanEventos /> */}
 
-</div>
-                </div>                
+                    </div>
+                </div>
             </div>
         </>
 
