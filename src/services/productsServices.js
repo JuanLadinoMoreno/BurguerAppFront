@@ -136,15 +136,17 @@ export async function getProductsInCart(){
     }
 }
 
-export async function saveCart(cart, customer, total){
+export async function saveCart(cart, customer, total, branch){
     try{
+        
         const res = await axiosD({
             url: 'http://localhost:8080/api/carts',
             method: 'POST',
             data: { 
                 products: cart,
                 customer,
-                totalPrice: total
+                totalPrice: total,
+                branch: branch
             },
             // data: cart ,
             // withCredentials: true

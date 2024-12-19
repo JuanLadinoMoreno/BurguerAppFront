@@ -13,9 +13,7 @@ import NavDash from "../components/Dash/components/NavDash";
 import { UpdateCart } from "../services/cartsServices";
 import DataUser from "../components/Dash/components/DataUser";
 import { useGetCustomers } from "../Hooks/useCustomers";
-
-
-
+import { useAuth } from "../context/AuthContext";
 
 
 // const deleteProd = (ob, func, id) => {
@@ -44,11 +42,10 @@ export const Cart = () => {
   const { register, formState: { errors }, handleSubmit, watch, setValue } = useForm()
 
   const { usersData, setUsersData } = useGetCustomers()
+  const { user } = useAuth()
 
 
-  console.log('counttttttttttttt', count);
   const { cart, setCart, productsData, isLoading } = useGetProductsCart(count)
-  console.log('cartttttttttttttttttt', cart);
 
   const [carrito, setCarrito] = useState([]);
   const [total, setTotal] = useState(0);
@@ -75,8 +72,6 @@ export const Cart = () => {
           // const producto = useGetProductsById(item.pid);
           const producto = await getProductById(item.pid);
           const productData = producto.data.payload;
-          console.log('producto data--------', productData);
-          console.log('item-------', item);
 
 
 
@@ -131,7 +126,6 @@ export const Cart = () => {
         calcularTotal(productosDetalles)
         // return await obtenerDetallesProductos(count);
         // console.log('productosConDetalles', productosDetalles); // Aquí puedes usar los productos con detalles
-        console.log('carrito-------------', carrito) // Aquí puedes usar los productos con detalles
       } catch (error) {
         console.error("Error al mostrar los productos:", error);
       }
@@ -161,7 +155,6 @@ export const Cart = () => {
 
 
   const calcularTotal = (carrito) => {
-    console.log('carrito-------------------------------------------------------', carrito);
 
     const totalCalculado = carrito.reduce((acc, producto) => acc +
       // ((producto.productData.precio * producto.quantity) + 
@@ -219,7 +212,6 @@ export const Cart = () => {
 
 
   const deleteProdCart = (index) => {
-    console.log('index <<<<<<<<<<<<<<<', index);
 
 
     if (count.length === 1)
@@ -258,8 +250,6 @@ export const Cart = () => {
 
         // calcularTotal(carrito)
 
-        console.log('carrito ----------------------', carrito);
-        console.log('total ----------------------', total);
 
 
 
@@ -372,12 +362,6 @@ export const Cart = () => {
 
   const buyCart = async () => {
     try {
-      console.log('count', count);
-      // addCustomer()
-      console.log('count22222222', count);
-      console.log('total', total);
-      console.log('customer', customer);
-
 
       const title = isEdit ?
         `Desea actualizar la orden ${idCard}` :
@@ -397,8 +381,8 @@ export const Cart = () => {
           // const prodCar = conv()
           if (!isEdit === true) {
 
-
-            const resp = await saveCart(count, customer, total)
+            
+            const resp = await saveCart(count, customer, total, user.branch.id)
             if (resp) {
               clearsObjects();
               // Swal.fire("Producto creado!", "", "info");
@@ -435,8 +419,6 @@ export const Cart = () => {
         } catch (error) {
 
           if (error.response) {
-
-            console.log('error.response', error.response.status);
 
             if (error.response.status === 400) {
               Swal.fire("Permiso denegado", error.response.data.error, "warning");
@@ -503,9 +485,6 @@ export const Cart = () => {
                       const value = e.target.value;
                       setCustomer(value)
                       setIdCustomer(value)
-                      // console.log('e.target.value', e.target.value)
-                      console.log("Selected value:", value);
-                      console.log("idCustomer:", idCustomer);
 
                     }}>
 
@@ -520,7 +499,6 @@ export const Cart = () => {
                 </div>
 
                 <div className="contCarr container">
-                  {console.log('carrito---------', carrito)}
 
                   {
 
@@ -619,11 +597,7 @@ export const Cart = () => {
                                     <small>Subtotal</small>
                                     {/* <p>$ {producto.productData.precio * producto.quantity}</p> */}
                                     <p>$
-                                      {/* {console.log(producto.productData.precio)}
-                                      {console.log(producto.size ? producto.size.precio : 0)}
-                                      {console.log(producto.selectedRevolcado ? producto.selectedRevolcado.precio : 0)}
-                                      {console.log(producto.ingredientesExtra.length > 0 ? producto.ingredientesExtra.reduce((acc, prod) => acc + prod.precio, 0) : 0)}
-                                      {console.log(producto.quantity)} */}
+                                      
                                       {
                                         //  carrito.reduce((acc, producto) => acc + 
                                         ((producto.productData.precio) +
