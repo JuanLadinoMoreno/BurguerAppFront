@@ -3,7 +3,7 @@ import axiosD from "./axios";
 export async function getBranches(){
 
     try {
-        return await axiosD.get('/branches');
+        return await axiosD.get('/branches/available');
         
     } catch (error) {
         console.log('url not found');
