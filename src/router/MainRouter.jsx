@@ -25,6 +25,7 @@ import Products from '../components/Dash/Pages/Products.jsx'
 import Users from '../components/Dash/Pages/Users.jsx'
 import CreateUser from '../components/Dash/Pages/CreateUser.jsx'
 import Customers from '../components/Dash/Pages/Customers.jsx'
+import Branches from '../components/Dash/Pages/Branches.jsx'
 import CreateCustomer from '../components/Dash/Pages/CreateCustomer.jsx'
 import Report from '../components/Dash/Pages/Report.jsx'
 import OrdersCustomer from '../components/Dash/Pages/OrdersCustomer.jsx'
@@ -77,6 +78,10 @@ export default function MainRouter() {
           <Route path='/dash/customers' element={<Customers />} />
           <Route path='/dash/addcustomer' element={<CreateCustomer />} />
           <Route path='/dash/customer/:cuid' element={<OrdersCustomer />} />
+
+          {/* Branches */}
+          <Route path='/dash/branches' element={<Branches />} />
+
           
           <Route path='/dash/report' element={<Report />} />
           

@@ -70,6 +70,13 @@ function NavDash() {
           </li>
 
           <li className="sidebar-item">
+            <Link to={"/dash/branches"} className="sidebar-link">
+              <i className="fa-solid fa-store fs-4"></i>
+              <span>Sucursales</span>
+            </Link>
+          </li>
+
+          <li className="sidebar-item">
             <Link to={"/dash/report"} className="sidebar-link">
             <i className="fa-solid fa-chart-line fs-4"></i>
               <span>Reporte ventas</span>

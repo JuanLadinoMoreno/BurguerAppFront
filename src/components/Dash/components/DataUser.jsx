@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../../../context/AuthContext'
 import { onLogout } from '../../../services'
-import { useGetBranches } from '../../../Hooks/useBranchs'
+import { useGetBranchesAvailables } from '../../../Hooks/useBranchs'
 import { changeUserBranch } from '../../../services/branchServices'
 
 
 function DataUser() {
 
     const { user, setUser } = useAuth()
-    const { branches } = useGetBranches()
+    const { branches } = useGetBranchesAvailables()
     const [selectedBranch, setSelectedBranch] = useState('')
 
     useEffect(() => {
