@@ -136,7 +136,7 @@ export async function getProductsInCart(){
     }
 }
 
-export async function saveCart(cart, customer, total, branch){
+export async function saveCart(cart, customer, total, branch, tableNumber, orderType){
     try{
         
         const res = await axiosD({
@@ -146,7 +146,9 @@ export async function saveCart(cart, customer, total, branch){
                 products: cart,
                 customer,
                 totalPrice: total,
-                branch: branch
+                branch: branch,
+                tableNumber,
+                orderType
             },
             // data: cart ,
             // withCredentials: true

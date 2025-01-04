@@ -50,6 +50,8 @@ export const Cart = () => {
   const [carrito, setCarrito] = useState([]);
   const [total, setTotal] = useState(0);
   const [customer, setCustomer] = useState('');
+  const [orderType, setOrderType] = useState('Para llevar')
+  const [tableNumber, setTableNumber] = useState(0)
 
   const [quantityProd, setQuantityProd] = useState(0);
 
@@ -189,7 +191,7 @@ export const Cart = () => {
       return updatedCount;
     });
   };
-  
+
   const decrementQuantity = (index) => {
     setCount((prevCount) => {
       const updatedCount = [...prevCount];
@@ -200,7 +202,7 @@ export const Cart = () => {
       return updatedCount;
     });
   };
-  
+
 
 
 
@@ -381,8 +383,8 @@ export const Cart = () => {
           // const prodCar = conv()
           if (!isEdit === true) {
 
-            
-            const resp = await saveCart(count, customer, total, user.branch.id)
+
+            const resp = await saveCart(count, customer, total, user.branch.id, tableNumber, orderType)
             if (resp) {
               clearsObjects();
               // Swal.fire("Producto creado!", "", "info");
@@ -424,7 +426,8 @@ export const Cart = () => {
               Swal.fire("Permiso denegado", error.response.data.error, "warning");
             } else if (error.response.status === 409) {
               // Swal.fire("Permiso denegado", error.response.data.error, "warning");
-              Swal.fire(error.response.data.error, "Actualice stock", "warning");
+              console.log('error.response.data.error', error.response.data.error);              
+              Swal.fire(error.response.data.error, "", "warning");
             }
             else {
               Swal.fire("Permiso denegado", error.response.data.message, "warning");
@@ -446,6 +449,12 @@ export const Cart = () => {
     }
   }
 
+  const handleOrderTypeChange = (e) => {
+    setOrderType(e.target.value)
+    if(e.target.value === 'En mesa'){
+      setTableNumber(0)
+    }
+  }
 
   return (
     <>
@@ -474,28 +483,80 @@ export const Cart = () => {
               </l-dot-spinner> :
 
               <>
-                <div className="col-md-4 col-sm-10 align-self-end me-4">
+                <div className=" d-flex ">
 
-                  <span className="fs-5 text-start">Cliente</span>
-                  <select
-                    className="form-select text-uppercase mt-2"
-                    // value={!isEdit ? idCustomer : ""}
-                    value={idCustomer}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      setCustomer(value)
-                      setIdCustomer(value)
 
-                    }}>
+                  <div className=" col-sm-10 align-self-end me-4">
 
-                    <option value="">-Sleccione Cliente-</option>
-                    {/* cupon neubox NBXSPINUDAJ */}
+                    <span className="fs-5 text-start">Cliente</span>
+                    <select
+                      className="form-select text-uppercase mt-2"
+                      // value={!isEdit ? idCustomer : ""}
+                      value={idCustomer}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setCustomer(value)
+                        setIdCustomer(value)
+
+                      }}>
+
+                      <option value="">-Seleccione Cliente-</option>
+                      {/* cupon neubox NBXSPINUDAJ */}
+                      {
+                        usersData.map(customer => (
+                          <option key={customer._id} value={customer._id}> {customer.firstName} {customer.lastName} </option>
+                        ))
+                      }
+                    </select>
+                  </div>
+
+                  <div className=" col-sm-10 align-self-end me-4">
+
+                    <label>
+                      Tipo de Orden:
+                      <select value={orderType} onChange={handleOrderTypeChange}>
+                        <option value="Para llevar">Para llevar</option>
+                        <option value="En mesa">En mesa</option>
+                      </select>
+                    </label>
+
+
                     {
-                      usersData.map(customer => (
-                        <option key={customer._id} value={customer._id}> {customer.firstName} {customer.lastName} </option>
-                      ))
+                      orderType === 'En mesa' && (
+                        <>
+                          {/* <span className="fs-5 text-start">Mesa</span> */}
+                          <select
+                            className="form-select text-uppercase mt-2"
+                            // value={!isEdit ? idCustomer : ""}
+                            value={tableNumber}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              setTableNumber(value)
+
+                            }}>
+
+                            <option value="0" disabled>Seleccione numero de mesa</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                          </select>
+                        </>
+                      )
                     }
-                  </select>
+
+                  </div>
                 </div>
 
                 <div className="contCarr container">
@@ -597,7 +658,7 @@ export const Cart = () => {
                                     <small>Subtotal</small>
                                     {/* <p>$ {producto.productData.precio * producto.quantity}</p> */}
                                     <p>$
-                                      
+
                                       {
                                         //  carrito.reduce((acc, producto) => acc + 
                                         ((producto.productData.precio) +
