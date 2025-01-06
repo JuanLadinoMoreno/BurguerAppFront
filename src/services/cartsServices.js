@@ -62,6 +62,8 @@ export async function endPurchase(cid){
     
 }
 
+export const getTablesOccupied = async () => axiosD.get(`carts/tables-occupied`, );
+
 // export const saveProductttt = async (product) => axiosD.post(`/products`, product);
 
 // export async function endPurchase(product){

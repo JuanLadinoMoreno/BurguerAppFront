@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { getProductById, handlePurchase, onRegister, saveCart } from "../services";
 import Cookies from 'js-cookie'
 import NavDash from "../components/Dash/components/NavDash";
-import { UpdateCart } from "../services/cartsServices";
+import { getTablesOccupied, UpdateCart } from "../services/cartsServices";
 import DataUser from "../components/Dash/components/DataUser";
 import { useGetCustomers } from "../Hooks/useCustomers";
 import { useAuth } from "../context/AuthContext";
@@ -52,6 +52,7 @@ export const Cart = () => {
   const [customer, setCustomer] = useState('');
   const [orderType, setOrderType] = useState('Para llevar')
   const [tableNumber, setTableNumber] = useState(0)
+  const [tablesOccupied, setTablesOccupied] = useState([])
 
   const [quantityProd, setQuantityProd] = useState(0);
 
@@ -136,6 +137,21 @@ export const Cart = () => {
 
     mostrarCarritoConDetalles()
   }, [count])
+
+  useEffect(() => {
+
+    const UseGeTablesOcuppied = async () => {
+      const tables = await getTablesOccupied()
+      const tablesOcuppiedData = tables.data.payload
+      const arrayTableNumber = tablesOcuppiedData.map(table => table.tableNumber)
+      setTablesOccupied(arrayTableNumber)
+    }
+
+    UseGeTablesOcuppied()
+
+
+  }, [])
+
 
 
   // useEffect(() => {
@@ -426,7 +442,7 @@ export const Cart = () => {
               Swal.fire("Permiso denegado", error.response.data.error, "warning");
             } else if (error.response.status === 409) {
               // Swal.fire("Permiso denegado", error.response.data.error, "warning");
-              console.log('error.response.data.error', error.response.data.error);              
+              console.log('error.response.data.error', error.response.data.error);
               Swal.fire(error.response.data.error, "", "warning");
             }
             else {
@@ -451,7 +467,7 @@ export const Cart = () => {
 
   const handleOrderTypeChange = (e) => {
     setOrderType(e.target.value)
-    if(e.target.value === 'En mesa'){
+    if (e.target.value === 'En mesa') {
       setTableNumber(0)
     }
   }
@@ -483,81 +499,6 @@ export const Cart = () => {
               </l-dot-spinner> :
 
               <>
-                <div className=" d-flex ">
-
-
-                  <div className=" col-sm-10 align-self-end me-4">
-
-                    <span className="fs-5 text-start">Cliente</span>
-                    <select
-                      className="form-select text-uppercase mt-2"
-                      // value={!isEdit ? idCustomer : ""}
-                      value={idCustomer}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        setCustomer(value)
-                        setIdCustomer(value)
-
-                      }}>
-
-                      <option value="">-Seleccione Cliente-</option>
-                      {/* cupon neubox NBXSPINUDAJ */}
-                      {
-                        usersData.map(customer => (
-                          <option key={customer._id} value={customer._id}> {customer.firstName} {customer.lastName} </option>
-                        ))
-                      }
-                    </select>
-                  </div>
-
-                  <div className=" col-sm-10 align-self-end me-4">
-
-                    <label>
-                      Tipo de Orden:
-                      <select value={orderType} onChange={handleOrderTypeChange}>
-                        <option value="Para llevar">Para llevar</option>
-                        <option value="En mesa">En mesa</option>
-                      </select>
-                    </label>
-
-
-                    {
-                      orderType === 'En mesa' && (
-                        <>
-                          {/* <span className="fs-5 text-start">Mesa</span> */}
-                          <select
-                            className="form-select text-uppercase mt-2"
-                            // value={!isEdit ? idCustomer : ""}
-                            value={tableNumber}
-                            onChange={(e) => {
-                              const value = e.target.value;
-                              setTableNumber(value)
-
-                            }}>
-
-                            <option value="0" disabled>Seleccione numero de mesa</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                          </select>
-                        </>
-                      )
-                    }
-
-                  </div>
-                </div>
 
                 <div className="contCarr container">
 
@@ -567,6 +508,77 @@ export const Cart = () => {
                     carrito.length > 0 ?
 
                       <div>
+                        <div className=" d-flex container m-3">
+
+
+                          <div className=" col-sm-10 col-md-4 align-self-end me-4">
+
+                            <span className="fs-5 text-start">Cliente</span>
+                            <select
+                              className="form-select text-uppercase mt-2"
+                              // value={!isEdit ? idCustomer : ""}
+                              value={idCustomer}
+                              onChange={(e) => {
+                                const value = e.target.value;
+                                setCustomer(value)
+                                setIdCustomer(value)
+
+                              }}>
+
+                              <option value="">-Seleccione Cliente-</option>
+                              {/* cupon neubox NBXSPINUDAJ */}
+                              {
+                                usersData.map(customer => (
+                                  <option key={customer._id} value={customer._id}> {customer.firstName} {customer.lastName} </option>
+                                ))
+                              }
+                            </select>
+                          </div>
+
+                          <div className=" col-sm-10 col-md-4 align-self-end me-4">
+
+                            <label>
+                              Tipo de Orden:
+                              <select className="form-select text-uppercase mt-2" value={orderType} onChange={handleOrderTypeChange}>
+                                <option value="Para llevar">Para llevar</option>
+                                <option value="En mesa">En mesa</option>
+                              </select>
+                            </label>
+
+
+                            {
+                              orderType === 'En mesa' && (
+                                <>
+                                  {/* <span className="fs-5 text-start">Mesa</span> */}
+                                  <select
+                                    className="form-select text-uppercase mt-2"
+                                    // value={!isEdit ? idCustomer : ""}
+                                    value={tableNumber}
+                                    onChange={(e) => {
+                                      const value = e.target.value;
+                                      setTableNumber(value)
+
+                                    }}>
+                                    <option value="0" disabled>Seleccione numero de mesa</option>
+                                    {
+                                      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((table) => (
+                                        <option
+                                          //conditional style
+                                          className={`p-2 ${tablesOccupied?.includes(table) ? ' text-danger' : ''}`}
+                                          key={table}
+                                          value={table}
+                                          disabled={tablesOccupied?.includes(table)}>
+                                          Mesa {table} {tablesOccupied?.includes(table) ? "(Ocupada)" : ''}
+                                        </option>
+                                      ))
+                                    }
+                                  </select>
+                                </>
+                              )
+                            }
+
+                          </div>
+                        </div>
 
                         <div id="productsCarr" className="productsCarr ">
                           {

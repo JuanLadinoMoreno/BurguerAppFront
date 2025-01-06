@@ -185,7 +185,7 @@ export const TableCarts = () => {
                                                         <div className="prodCarr" key={cart.id}>
                                                             {console.log('----------------------', cart)}
                                                             <div className="titu">
-                                                                <small>CartId</small>
+                                                                <small>Id</small>
                                                                 <p>
                                                                     {
                                                                         cart.id.substr(-4, 4)
@@ -203,9 +203,13 @@ export const TableCarts = () => {
                                                                     }
                                                                 </p>
                                                             </div>
-                                                            <div className="cantidad">
-                                                                <small>Status</small>
-                                                                <p>{cart.status}</p>
+                                                            <div>
+                                                                <small>Tipo</small>
+                                                                <p>{cart.orderType}</p>
+                                                            </div>
+                                                            <div>
+                                                                <small>Mesa</small>
+                                                                <p>{cart.tableNumber === 0 ? '' : cart.tableNumber}</p>
                                                             </div>
                                                             <div className="precio">
                                                                 <small>Productos</small>
