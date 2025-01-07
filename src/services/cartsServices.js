@@ -21,6 +21,15 @@ export async function getCartsByUserId(uid){
     
 }
 
+export async function getCartsByUserInBranch(uid,bid){
+    try {
+        return await axiosD.get(`carts/user/${uid}/branch/${bid}`);        
+    } catch (error) {
+        console.log('url not found');
+    }
+    
+}
+
 export async function getCartsById(cid){
     try {
         return await axiosD.get(`carts/${cid}`);

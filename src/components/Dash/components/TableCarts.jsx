@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { endPurchase, getCartsById, getCartsByUserId, updCartToCanceled } from '../../../services/cartsServices'
+import { endPurchase, getCartsById, getCartsByUserId, getCartsByUserInBranch, updCartToCanceled } from '../../../services/cartsServices'
 import { useAuth } from '../../../context/AuthContext'
 import NavDash from './NavDash'
 import { Link, useParams } from 'react-router-dom'
@@ -22,7 +22,7 @@ export const TableCarts = () => {
         const getCarts = async () => {
 
 
-            const carts = await getCartsByUserId(user.id)
+            const carts = await getCartsByUserInBranch(user.id, user.branch.id)
             // console.log('carts-----------------    ', carts.data.payload);
 
             if (carts) {
