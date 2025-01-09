@@ -82,6 +82,29 @@ function ModalDataOrder({ rowSelected }) {
                                                                 </p>
 
                                                             </div>
+                                                            
+                                                            <div className='fs-5'>
+                                                                <p className='fw-lighter'>Tipo:
+                                                                    <br />
+                                                                    <span className='fw-lighter text-uppercase fs-6'>
+                                                                        {rowSelected.orderType }
+                                                                    </span>
+
+                                                                </p>
+
+                                                            </div>
+
+                                                            <div className='fs-5'>
+                                                                <p className='fw-lighter'>Mesa:
+                                                                    <br />
+                                                                    <span className='fw-lighter text-uppercase fs-6'>
+                                                                        {rowSelected.tableNumber}
+                                                                        {/* {rowSelected.tableNumber == 0 ? rowSelected.tableNumber : 'N/A'} */}
+                                                                    </span>
+
+                                                                </p>
+
+                                                            </div>
 
                                                             <div className="dvCalcu ">
                                                                 <div className="total fs-4">

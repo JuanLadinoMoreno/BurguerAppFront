@@ -132,6 +132,16 @@ function TableOrders({ allCarts, isLoadingCart }) {
             selector: row => row.customer != null ? row.customer.firstName + ' ' + row.customer.lastName : '',
         },
         {
+            name: 'Sucursal',
+            sortable: true,
+            selector: row => row.branch?.name,
+        },
+        {
+            name: 'Tipo',
+            sortable: true,
+            selector: row => row.orderType,
+        },
+        {
             name: 'Fecha',
             sortable: true,
             selector: row => new Date(row.createdAt).toLocaleDateString('es-ES'), // Formato ISO 8601: "YYYY-MM-DD"

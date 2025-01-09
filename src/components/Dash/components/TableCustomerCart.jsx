@@ -146,14 +146,19 @@ function TableCustomerCart({ cartsCustomer, customer, isLoading }) {
             // ],
         },
         {
-            name: 'Usuario',
+            name: 'Mesero',
             sortable: true,
             selector: row => row.user.firstName,
         },
         {
-            name: 'Cliente',
+            name: 'Sucursal',
             sortable: true,
-            selector: row => row.customer != null ? row.customer.firstName + ' ' + row.customer.lastName : '',
+            selector: row => row.branch?.name,
+        },
+        {
+            name: 'Tipo',
+            sortable: true,
+            selector: row => row.orderType,
         },
         {
             name: 'Fecha',

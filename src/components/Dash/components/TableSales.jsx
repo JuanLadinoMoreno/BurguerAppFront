@@ -26,13 +26,14 @@ const customStyles = {
     // },d
 };
 
-function TableSales({ allSales, isLoading}) {
+function TableSales({ allSales, isLoading }) {
 
     const [rowSelected, setRowSelected] = useState(null)
     const [allSalesDataCopy, setAllSalesDataCopy] = useState([])
 
     const openModal = (row) => {
         setRowSelected(row)
+        console.log(row);
     }
 
     const columns = [
@@ -55,6 +56,16 @@ function TableSales({ allSales, isLoading}) {
             name: 'Cliente',
             sortable: true,
             selector: row => row.customer != null ? row.customer.firstName + ' ' + row.customer.lastName : '',
+        },
+        {
+            name: 'Sucursal',
+            sortable: true,
+            selector: row => row.cart.branch?.name,
+        },
+        {
+            name: 'Tipo',
+            sortable: true,
+            selector: row => row.cart.orderType,
         },
         {
             name: 'Fecha',
@@ -150,7 +161,7 @@ function TableSales({ allSales, isLoading}) {
                     <div className='col-lg-8 col-md-6 d-flex  justify-content-end align-items-center' >
 
                         <button className={`btn-prin float-end mt-2 mb-2 `} onClick={exportToExcel}>
-                        {/* className={`btn-prin float-end mt-2 mb-2 ${isLoading ? 'catSelectActive' : ''}`} */}
+                            {/* className={`btn-prin float-end mt-2 mb-2 ${isLoading ? 'catSelectActive' : ''}`} */}
                             <i className="fa-solid fa-file-excel fs-4 p-2"></i>
                             {/* <i className="fa-solid fa-download fs-4 p-2"></i> */}
                             Descargar
@@ -205,11 +216,44 @@ function TableSales({ allSales, isLoading}) {
                                                                 <h3 className='float-start '> TIKET: <span className='font-monospace text-success'>{rowSelected.code}</span> </h3>
 
                                                                 <div className='fs-5'>
+                                                                    <p className='fw-lighter'>Sucursal:
+                                                                        <br />
+                                                                        <span className='fw-lighter text-uppercase fs-6'>
+                                                                            {rowSelected.cart.branch.name}
+                                                                        </span>
+
+                                                                    </p>
+
+                                                                </div>
+
+                                                                <div className='fs-5'>
                                                                     <p className='fw-lighter'>Cliente:
                                                                         <br />
                                                                         <span className='fw-lighter text-uppercase fs-6'>
 
                                                                             {rowSelected.customer != null ? ' ' + rowSelected.customer.firstName + ' ' + rowSelected.customer.lastName : ' Sin Cliente'}
+                                                                        </span>
+
+                                                                    </p>
+
+                                                                </div>
+
+                                                                <div className='fs-5'>
+                                                                    <p className='fw-lighter'>Tipo:
+                                                                        <br />
+                                                                        <span className='fw-lighter text-uppercase fs-6'>
+                                                                            {rowSelected.cart.orderType}
+                                                                        </span>
+
+                                                                    </p>
+
+                                                                </div>
+
+                                                                <div className='fs-5'>
+                                                                    <p className='fw-lighter'>Mesa:
+                                                                        <br />
+                                                                        <span className='fw-lighter text-uppercase fs-6'>
+                                                                            {rowSelected.tableNumber == 0 ? rowSelected.tableNumber : 'N/A'}
                                                                         </span>
 
                                                                     </p>
