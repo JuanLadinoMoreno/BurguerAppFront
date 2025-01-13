@@ -14,7 +14,10 @@ export default function Menu() {
 
     const { setCount,
         setIsEdit,
-        setIdCard } = useContext(CarContext)
+        setIdCard,
+        setIdCustomer,
+        setOrderType,
+        setTableNumber } = useContext(CarContext)
 
     useEffect(() => {
         // Añadir la clase no-scroll a html y body al cargar la página
@@ -32,6 +35,9 @@ export default function Menu() {
         setCount([]);
         setIsEdit(false)
         setIdCard('')
+        setIdCustomer('')
+        setOrderType('Para llevar')
+        setTableNumber(0)
     }
 
     useEffect(() => {

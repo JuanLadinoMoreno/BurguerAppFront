@@ -42,12 +42,12 @@ export async function getCartsById(cid){
 
 export const updCartToCanceled = async (cid) => axiosD.put(`/carts/cancel/${cid}`);
 
-export async function UpdateCart(cid, cart, total){
+export async function UpdateCart(cid, cart, total, orderType, tableNumber){
     try{
         const res = await axiosD({
             url: 'http://localhost:8080/api/carts',
             method: 'PUT',
-            data: { cart: cart , cid: cid, totalPrice: total},
+            data: { cart: cart , cid: cid, totalPrice: total, orderType, tableNumber},
             // data: cart ,
             // withCredentials: true
         })

@@ -37,7 +37,7 @@ import { useAuth } from "../context/AuthContext";
 export const Cart = () => {
 
   // count es el arreglo de los productos del carrito, solo viene el id y la cantidad
-  const { count, setCount, isEdit, setIsEdit, idCard, setIdCard, idCustomer, setIdCustomer } = useContext(CarContext);
+  const { count, setCount, isEdit, setIsEdit, idCard, setIdCard, idCustomer, setIdCustomer, orderType, setOrderType, tableNumber, setTableNumber } = useContext(CarContext);
   // const [cartP, setCartP] = useState({})
   const { register, formState: { errors }, handleSubmit, watch, setValue } = useForm()
 
@@ -50,8 +50,8 @@ export const Cart = () => {
   const [carrito, setCarrito] = useState([]);
   const [total, setTotal] = useState(0);
   const [customer, setCustomer] = useState('');
-  const [orderType, setOrderType] = useState('Para llevar')
-  const [tableNumber, setTableNumber] = useState(0)
+  // const [orderType, setOrderType] = useState('Para llevar')
+  // const [tableNumber, setTableNumber] = useState(0)
   const [tablesOccupied, setTablesOccupied] = useState([])
 
   const [quantityProd, setQuantityProd] = useState(0);
@@ -132,7 +132,7 @@ export const Cart = () => {
       } catch (error) {
         console.error("Error al mostrar los productos:", error);
       }
-      !isEdit ? "" : setCustomer(idCustomer)
+      !isEdit ? "" : setIdCustomer(idCustomer)
     }
 
     mostrarCarritoConDetalles()
@@ -308,7 +308,7 @@ export const Cart = () => {
     setCart([]);
     setIsEdit(false)
     setIdCard('')
-    setCustomer('')
+    // setCustomer('')
     setIdCustomer('')
     // total = 0;
   }
@@ -380,7 +380,6 @@ export const Cart = () => {
 
   const buyCart = async () => {
     try {
-
       const title = isEdit ?
         `Desea actualizar la orden ${idCard}` :
         'Desea crear la orden'
@@ -400,7 +399,7 @@ export const Cart = () => {
           if (!isEdit === true) {
 
 
-            const resp = await saveCart(count, customer, total, user.branch.id, tableNumber, orderType)
+            const resp = await saveCart(count, idCustomer, total, user.branch.id, tableNumber, orderType)
             if (resp) {
               clearsObjects();
               // Swal.fire("Producto creado!", "", "info");
@@ -416,7 +415,7 @@ export const Cart = () => {
 
           } else {
 
-            const resp = await UpdateCart(idCard, count, total)
+            const resp = await UpdateCart(idCard, count, total, orderType, tableNumber)
             if (resp) {
               clearsObjects();
               // Swal.fire("Producto creado!", "", "info");
@@ -467,7 +466,7 @@ export const Cart = () => {
 
   const handleOrderTypeChange = (e) => {
     setOrderType(e.target.value)
-    if (e.target.value === 'En mesa') {
+    if (e.target.value === 'Para llevar') {
       setTableNumber(0)
     }
   }
@@ -719,9 +718,9 @@ export const Cart = () => {
                           </div>
                         </div>
 
-                        <Link to={"/menu"} className="btnVaciar btn btn-prin">
+                        {/* <Link to={"/menu"} className="btnVaciar btn btn-prin">
                           Seguir comprando
-                        </Link>
+                        </Link> */}
                       </div>
                       :
                       <h2 id="carVacio" className="carVacio ">

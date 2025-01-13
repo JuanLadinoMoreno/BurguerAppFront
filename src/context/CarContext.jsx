@@ -9,7 +9,8 @@ export const CarProvider = ({children}) => {
     const [isEdit, setIsEdit] = useState(false);
     const [idCard, setIdCard ] = useState('')
     const [idCustomer, setIdCustomer ] = useState('')
-
+    const [orderType, setOrderType] = useState('Para llevar')
+    const [tableNumber, setTableNumber] = useState(0)
     // const handleAdd = () =>{
     //     setCount (count + 1);
     // }
@@ -21,7 +22,7 @@ export const CarProvider = ({children}) => {
     // }
 
     return(
-        <CarContext.Provider value = {{count, setCount, isEdit, setIsEdit, idCard, setIdCard, idCustomer, setIdCustomer}}>
+        <CarContext.Provider value = {{count, setCount, isEdit, setIsEdit, idCard, setIdCard, idCustomer, setIdCustomer, orderType, setOrderType, tableNumber, setTableNumber}}>
             {children}
         </CarContext.Provider>
     )

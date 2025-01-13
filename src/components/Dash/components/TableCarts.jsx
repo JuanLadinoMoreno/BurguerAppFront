@@ -7,13 +7,14 @@ import { Link, useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { CarContext } from '../../../context/CarContext'
 import DataUser from './DataUser'
+import ModalDataOrder from './ModalDataOrder'
 
 
 export const TableCarts = () => {
     const { cid } = useParams()
 
     const { user } = useAuth()
-    const { isEdit, setIsEdit, count, setCount, idCard, setIdCard, idCustomer, setIdCustomer } = useContext(CarContext)
+    const { isEdit, setIsEdit, count, setCount, idCard, setIdCard, idCustomer, setIdCustomer, setOrderType, setTableNumber } = useContext(CarContext)
 
     const [CartsByUser, setCartsByUser] = useState([])
 
@@ -75,6 +76,8 @@ export const TableCarts = () => {
         setIsEdit(true)
         setIdCard(cid)
         setIdCustomer(carts.data.payload.customer)
+        setOrderType(carts.data.payload.orderType)
+        setTableNumber(carts.data.payload.tableNumber)
         console.log('count-----  ', count);
 
     }
@@ -84,57 +87,62 @@ export const TableCarts = () => {
 
         try {
 
-                const result = await Swal.fire({
+            const result = await Swal.fire({
 
-                    title: "Seguro desea cancelar la orden?",
-                    // text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Aceptar",
-                    cancelButtonText: "Cancelar"
-                })
-              
+                title: "Seguro desea cancelar la orden?",
+                // text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Aceptar",
+                cancelButtonText: "Cancelar"
+            })
 
-                if (result.isConfirmed) {
-                    try {
-                        const resp =  await updCartToCanceled(cid)
-                        console.log('resp', resp);
-                        
-                        if (resp) {
-                            // Swal.fire("Orden cancelada","","success")
-                            Swal.fire({
-                                title: 'Acción realizada con éxito',
-                                text: 'Serás redirigido en unos momentos...',
-                                icon: 'success',
-                                timer: 1800, 
-                                showConfirmButton: false, // No mostrar el botón de confirmación
-                            });
-                    
-                            // Espera unos minutos antes de redirigir (en este ejemplo, 2 minutos = 120000 ms)
-                            await delay(1500);
-                            window.location.href = '/menu'
-                        }else{
-                            Swal.fire("No fue posible cancdelar la orden","","error")
-                        }
-                    } catch (error) {
-                        if (error.response) {
-                            Swal.fire("Problemas al cancelar la orden","","error")
-                            console.log('error', error);
-                            
-                        } else {
-                            console.log('error', error);
-                            Swal.fire("Error al cancelar orden", "Error desconocido", "danger");
-                        }
+
+            if (result.isConfirmed) {
+                try {
+                    const resp = await updCartToCanceled(cid)
+                    console.log('resp', resp);
+
+                    if (resp) {
+                        // Swal.fire("Orden cancelada","","success")
+                        Swal.fire({
+                            title: 'Acción realizada con éxito',
+                            text: 'Serás redirigido en unos momentos...',
+                            icon: 'success',
+                            timer: 1800,
+                            showConfirmButton: false, // No mostrar el botón de confirmación
+                        });
+
+                        // Espera unos minutos antes de redirigir (en este ejemplo, 2 minutos = 120000 ms)
+                        await delay(1500);
+                        window.location.href = '/menu'
+                    } else {
+                        Swal.fire("No fue posible cancdelar la orden", "", "error")
                     }
+                } catch (error) {
+                    if (error.response) {
+                        Swal.fire("Problemas al cancelar la orden", "", "error")
+                        console.log('error', error);
 
+                    } else {
+                        console.log('error', error);
+                        Swal.fire("Error al cancelar orden", "Error desconocido", "danger");
+                    }
                 }
-              
+
+            }
+
 
         } catch (error) {
             console.log('error', error);
         }
+    }
+
+    const [rowSelected, setRowSelected] = useState(null)
+    const openModal = (row) => {
+        setRowSelected(row)
     }
 
     return (
@@ -274,10 +282,18 @@ export const TableCarts = () => {
                                                                 {
                                                                 }
                                                             </div>
+
                                                             {/* <div className="subtotal">
                                         <small>Subtotal</small>
                                         <p>klskdjflksjdfljkljd</p>
                                     </div> */}
+                                                            {/* <div>
+                                                                <small>Productos</small>
+                                                                <button className="  mb-2 "  data-bs-toggle="modal" data-bs-target="#modalOrderCustomer" onClick={() => openModal(cart)}>
+                                                                    <i className="bi bi-eye fs-4"></i>
+                                                                </button>
+
+                                                            </div> */}
                                                             <div>
                                                                 <small>Agregar productos</small>
                                                                 <Link className="  mb-2 " to={`/cart/`} onClick={() => { forEdit(cart._id) }}>
@@ -317,12 +333,12 @@ export const TableCarts = () => {
                         }
 
                         {/* <BanEventos /> */}
+                        {/* <ModalDataOrder rowSelected={rowSelected} /> */}
 
                     </div>
                 </div>
             </div>
         </>
-
     )
 
 }
