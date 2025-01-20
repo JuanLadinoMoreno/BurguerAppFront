@@ -12,9 +12,9 @@ function Report() {
 
     const { allSales, isLoading } = useGetAlltickets()
     const { totalSales, monthsSales } = useGetAllAmount()
-    const { salesForMonth } = useGetSalesForMonth()
-    const { salesCategoryMonth } = useGetSalesForCategoryMonth('burguerP')
-    const { categories } = useGetCategories();
+    // const { salesForMonth } = useGetSalesForMonth()
+    // const { salesCategoryMonth } = useGetSalesForCategoryMonth('burguerP')
+    // const { categories } = useGetCategories();
     const {allCarts, isLoadingCart} = useGetAllCarts()
 
     return (
@@ -25,9 +25,9 @@ function Report() {
 
                 <section className="contMen d-block top-0 w-100">
                     <DataUser />
-                    <div className="container">
+                    <div className="container-lg">
                         <BannerSells totalSales={totalSales} monthsSales={monthsSales} allSales={allSales} />
-                        <Graphics salesForMonth={salesForMonth} salesCategoryMonth={salesCategoryMonth} categories={categories} />
+                        <Graphics />
                         <TableOrders allCarts={allCarts} isLoadingCart={isLoadingCart}/>
                         <TableSales allSales={allSales} isLoading={isLoading} />
                     </div>

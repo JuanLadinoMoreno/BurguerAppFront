@@ -15,6 +15,8 @@ export const useGetAllBranches = () => {
                 const resp = await getBranches();
                 
                 setAllBranches(resp.data.payload)
+                console.log('resp', resp);
+                
             } catch (error) {
                 console.log(error);
             }

@@ -29,10 +29,14 @@ export async function getAllSales(){
         console.log('url not found' , error)
     }
 }
-
-export async function getSalesforMonth(){
+export async function getSalesforMonth(year, branch){
+    const startDate = new Date("2025-01-01")
+    // const branch = ObjectId('67609b0a0d14e4364a51dde5')
     try {
-        return await axios.get(`tickets/salesformonth`)
+        // console.log('branch', branch());
+        
+        return await axios.get(`tickets/salesformonth?anio=${year}&branch=${branch}`)
+        // return await axios.get(`tickets/salesformonth?anio=2024-01-01T00:00:00Z`)
         
     } catch (error) {
         console.log('url not found' , error)
@@ -50,9 +54,9 @@ export async function getSalesforMonth(){
 
 // export const getSalesForCategoriesMonth = async (category) => axios.get(`/tickets/salescategorymonth`, { category: category });
 
-export async function getSalesForCategoriesMonth(cid){
+export async function getSalesForCategoriesMonth(cid, year, branch){
     try {
-        return await axios.get(`tickets/salescategorymonth/${cid}`);
+        return await axios.get(`tickets/salescategorymonth?cid=${cid}&anio=${year}&branch=${branch}`);
         
     } catch (error) {
         console.log('url not found');

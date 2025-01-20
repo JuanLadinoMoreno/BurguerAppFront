@@ -64,13 +64,15 @@ export const useGetAllAmount = () => {
 
 }
 
-export const useGetSalesForMonth = () => {
+export const useGetSalesForMonth = (year, branch) => {
+    const yearr = new Date("2025-01-01")
     const [salesForMonth, setSalesForMonth] = useState([])
 
 
     const getSalesMonth = async () => {
+        if (!branch) return;
         try {
-            const resp = await getSalesforMonth()
+            const resp = await getSalesforMonth(year, branch)
             setSalesForMonth(resp.data.payload)
         } catch (error) {
             console.log(error);
@@ -79,18 +81,19 @@ export const useGetSalesForMonth = () => {
     }
     useEffect(() => {
         getSalesMonth();
-    }, [])
+    }, [year, branch])
 
     return { salesForMonth }
 }
 
-export const useGetSalesForCategoryMonth = (category) => {
+export const useGetSalesForCategoryMonth = (category,year, branch) => {
     const [salesCategoryMonth, setSalesCategoryMonth] = useState([])
 
 
     const getSalesCategoryMonth = async () => {
+        if (!branch || !category) return;
         try {
-            const resp = await getSalesForCategoriesMonth(category)
+            const resp = await getSalesForCategoriesMonth(category, year, branch)
             setSalesCategoryMonth(resp.data.payload)
         } catch (error) {
             console.log(error);
@@ -99,7 +102,7 @@ export const useGetSalesForCategoryMonth = (category) => {
     }
     useEffect(() => {
         getSalesCategoryMonth();
-    }, [category])
+    }, [category, year, branch])
 
     return { salesCategoryMonth }
 }
