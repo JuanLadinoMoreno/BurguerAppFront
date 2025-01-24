@@ -29,6 +29,7 @@ import Branches from '../components/Dash/Pages/Branches.jsx'
 import CreateCustomer from '../components/Dash/Pages/CreateCustomer.jsx'
 import Report from '../components/Dash/Pages/Report.jsx'
 import OrdersCustomer from '../components/Dash/Pages/OrdersCustomer.jsx'
+import OrdersUser from '../components/Dash/Pages/OrdersUser.jsx'
 
 // import login from '../components/Pages/Login/login.jsx'
 
@@ -69,6 +70,7 @@ export default function MainRouter() {
           <Route path='/dash/carts/user' element={<TableCarts />} />
           {/* Crea Ticket de orden / cierra compra */}
           <Route path='/dash/order/:cid' element={<EditOrder />} />
+          <Route path='/dash/orders/user/:uid' element={<OrdersUser />} />
 
           {/* users */}
           <Route path='/dash/users' element={<Users />} />

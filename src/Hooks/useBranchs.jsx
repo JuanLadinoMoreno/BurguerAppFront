@@ -4,66 +4,65 @@ import { createBranch, getBranches, getBranchesAvailable, updateBranch } from ".
 export const useGetAllBranches = () => {
     const [allBranches, setAllBranches] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    
-    
-    
+
+
+
     useEffect(() => {
-        
+
         const useBranches = async () => {
             try {
-                
+
                 const resp = await getBranches();
-                
+
                 setAllBranches(resp.data.payload)
-                console.log('resp', resp);
-                
+
             } catch (error) {
                 console.log(error);
             }
         }
-        
-        
+
+
         setTimeout(() => {
-            
+
             useBranches()
-            
+
             setIsLoading(false);
         }, 1000);
-        
+
     }, []);
-    
+
     return { allBranches, setAllBranches, isLoading }
 }
 
 export const useGetBranchesAvailables = () => {
     const [branches, setBranches] = useState([])
     // const [isLoading, setIsLoading] = useState(true)
-    
-    
-    
+
+
+
     useEffect(() => {
-        
+
         const useBranches = async () => {
             try {
-                
+
                 const resp = await getBranchesAvailable();
-                
+
                 setBranches(resp.data.payload)
             } catch (error) {
                 console.log(error);
             }
         }
-        
+
         useBranches()
-        
+
         // setTimeout(() => {
-            
-            
+
+
         //     setIsLoading(false);
         // }, 1000);
-        
+
     }, []);
-    
+
     return { branches }
 }
 

@@ -28,3 +28,16 @@ export async function onRegisterUser(user){
         return false
     }
 }
+
+export async function getAllUserCarts(uid){
+    // return await axios.get(`https://apimocha.com/burguerrobles/products/${id}`);
+    // return await axios.get(`https://apimocha.com/burgrob/products/${id}`);
+
+    try {
+        return await axiosD.get(`/carts/all/user/${uid}`);
+        
+    } catch (error) {
+        console.log('url not found', error);
+    }
+    
+}

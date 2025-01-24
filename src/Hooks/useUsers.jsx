@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteUser, getUsers, onRegister, updateUser } from "../services";
+import { deleteUser, getAllUserCarts, getUsers, onRegister, updateUser } from "../services";
 
 
 
@@ -67,4 +67,35 @@ export const useDeleteUser = async (id) => {
         console.log(error);
 
     }
+}
+
+export const useGetAllUserCarts = (uid) => {
+    const [cartsUser, setCartsUser] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    
+    
+    
+    useEffect(() => {
+        
+        const userCarts = async (uid) => {
+            try {
+                
+                const resp = await getAllUserCarts(uid);
+                setCartsUser(resp.data.payload)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        
+        
+        setTimeout(() => {
+            
+            userCarts(uid)
+            
+            setIsLoading(false);
+        }, 1000);
+        
+    }, []);
+    
+    return { cartsUser, isLoading }
 }
