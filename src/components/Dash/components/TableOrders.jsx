@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import ModalDataOrder from './ModalDataOrder';
+import { useFilterData } from '../../../Hooks/useFilterData';
 
 
 const customStyles = {
@@ -26,33 +27,19 @@ const customStyles = {
 };
 
 
-function TableOrders({ allCarts, isLoadingCart }) {
+function TableOrders({ isLoadingCart, cartsUser, allBranches }) {
 
-    const [allSalesDataCopy, setAllSalesDataCopy] = useState([])
+    const { salesDataCopy, selectedId, setsalesDataCopy, selectedClient, selectedBranch, selectedStatus, selectedType, changeFlter, changeFlterBranch, changeFlterClient, changeFlterState, changeFlterType, changeFlterWaiter } = useFilterData({ cartsUser })
+
+    // const [allSalesDataCopy, setAllSalesDataCopy] = useState([])
     const [rowSelected, setRowSelected] = useState(null)
 
-    // crea una copia para poder filtrarlos
+    // crea una copia para poder filtrarlos  
     useEffect(() => {
-        if (allCarts) {
-            setAllSalesDataCopy(allCarts);
-
+        if (cartsUser) {
+            setsalesDataCopy(cartsUser);
         }
-    }, [allCarts]);
-
-    const changeFlter = (e) => {
-
-        const searchText = e.target.value.toLowerCase()
-
-        if (searchText === "")
-            setAllSalesDataCopy(allCarts)
-
-        const dataFilter = allCarts.filter(record => {
-            return record._id.toLowerCase().includes(searchText)
-        })
-        setAllSalesDataCopy(dataFilter)
-
-
-    }
+    }, [cartsUser]);
 
     const openModal = (row) => {
         setRowSelected(row)
@@ -83,6 +70,7 @@ function TableOrders({ allCarts, isLoadingCart }) {
                         // border: row.status === 'finalized' ? '1px solid red' : 'none',
                         textAlign: 'center',
                         letterSpacing: '1px',
+                        fontSize: '0.85rem'
                     }}
                 >
                     {row.status}
@@ -122,9 +110,9 @@ function TableOrders({ allCarts, isLoadingCart }) {
             // ],
         },
         {
-            name: 'Usuario',
+            name: 'Mesero',
             sortable: true,
-            selector: row => row.user.firstName,
+            selector: row => row.user != null ? row.user.firstName + ' ' + row.user.lastName : '',
         },
         {
             name: 'Cliente',
@@ -169,36 +157,84 @@ function TableOrders({ allCarts, isLoadingCart }) {
         <>
             <div className=" p-1 mt-3">
 
-
                 <h3 className='card-title mb-2 p-1'>
-                    Ordenes
+                    <span className='fs-4 '>Ordenes:</span>
                 </h3>
 
                 {/* <div className={`container row ${isLoading ? 'disabled' : ''}`}> */}
-                <div className={`container row `}>
-                    <div className='col-lg-4 col-md-6  '>
-                        <p>Filtrar por código</p>
-                        <input className="form-control" type="text" onChange={changeFlter} />
-                    </div>
-                    <div className='col-lg-8 col-md-6 d-flex  justify-content-end align-items-center' >
 
-                        <button className={`btn-prin float-end mt-2 mb-2 `} >
-                            {/* className={`btn-prin float-end mt-2 mb-2 ${isLoading ? 'catSelectActive' : ''}`} */}
-                            <i className="fa-solid fa-file-excel fs-4 p-2"></i>
-                            {/* <i className="fa-solid fa-download fs-4 p-2"></i> */}
-                            Descargar
-                        </button>
-                    </div>
-                </div>
+                {
+                    isLoadingCart ?
+
+                        <span></span> :
+
+                        <div className={`container row `}>
+                            <div className='col-lg-2 col-md-2  '>
+                                <p>Filtrar por código</p>
+                                <input className="form-control" type="text" onChange={changeFlter} />
+                            </div>
+
+                            <div className='col-lg-2 col-md-6  '>
+                                <p>Filtrar por nombre mesero</p>
+                                <input className="form-control" type="text" onChange={changeFlterWaiter} />
+                            </div>
+
+                            <div className='col-lg-2 col-md-6  '>
+                                <p>Filtrar por nombre cliente</p>
+                                <input className="form-control" type="text" onChange={changeFlterClient} />
+                            </div>
+
+                            <div className='col-lg-2 col-md-6  '>
+                                <p>Filtrar por sucursal</p>
+                                <select className='form-select' value={selectedBranch} onChange={changeFlterBranch} >
+                                    <option value="">-Todos-</option>
+                                    {
+                                        allBranches.map(branch => (
+                                            <option value={branch.name.trim().toLowerCase()}>{branch.name.trim()}</option>
+                                        ))
+                                    }
+                                </select>
+                            </div>
+                            <div className='col-lg-2 col-md-6  '>
+                                <p>Filtrar por estado</p>
+                                <select className='form-select' value={selectedStatus} onChange={changeFlterState} >
+                                    <option value="">-Todos-</option>
+                                    <option value="created">Creado</option>
+                                    <option value="finalized">Finalizado</option>
+                                    <option value="canceled">Cancelado</option>
+                                </select>
+                            </div>
+                            <div className='col-lg-2 col-md-6  '>
+                                <p>Filtrar por tipo</p>
+                                <select className='form-select' value={selectedType} onChange={changeFlterType} >
+                                    <option value="">-Todos-</option>
+                                    <option value="en mesa">En mesa</option>
+                                    <option value="para llevar">Para llevar</option>
+                                </select>
+                            </div>
+
+                            <div className='col-lg-2 col-md-6 d-flex  justify-content-end align-items-center' >
+
+                                <button className={`btn-prin float-end mt-2 mb-2 `} >
+                                    {/* className={`btn-prin float-end mt-2 mb-2 ${isLoading ? 'catSelectActive' : ''}`} */}
+                                    <i className="fa-solid fa-file-excel fs-4 p-2"></i>
+                                    {/* <i className="fa-solid fa-download fs-4 p-2"></i> */}
+                                    Descargar
+                                </button>
+                            </div>
+                        </div>
+                }
+
                 <DataTable
                     // title='Ventas'
                     columns={columns}
-                    data={allSalesDataCopy}
+                    data={salesDataCopy}
                     pagination
                     paginationPerPage={7}
                     paginationPosition="bottom"
                     fixedHeader
                     customStyles={customStyles}
+                    // conditionalRowStyles={conditionalRowStyles}
                     progressPending={isLoadingCart}
                     progressComponent={
                         <div className='container d-flex justify-content-center align-items-center h-50 overflow-y-hidden'>
@@ -211,9 +247,8 @@ function TableOrders({ allCarts, isLoadingCart }) {
                     }
                 />
 
-                <ModalDataOrder rowSelected={rowSelected}/>
+                <ModalDataOrder rowSelected={rowSelected} />
 
-                
             </div>
         </>
     )

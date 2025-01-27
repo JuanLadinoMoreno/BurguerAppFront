@@ -74,6 +74,7 @@ function TableUserCart({ cartsUser, isLoading, allBranches }) {
                         // border: row.status === 'finalized' ? '1px solid red' : 'none',
                         textAlign: 'center',
                         letterSpacing: '1px',
+                        fontSize: '0.85rem'
                     }}
                 >
                     {row.status}
@@ -184,10 +185,6 @@ function TableUserCart({ cartsUser, isLoading, allBranches }) {
                                 <p>Filtrar por código</p>
                                 <input className="form-control" type="text" onChange={changeFlter} />
                             </div>
-                            {/* <div className='col-lg-4 col-md-6  '>
-                        <p>Filtrar por STATE</p>
-                        <input className="form-control" type="text" onChange={changeFlterState} />
-                    </div> */}
 
                             <div className='col-lg-2 col-md-6  '>
                                 <p>Filtrar por nombre cliente</p>

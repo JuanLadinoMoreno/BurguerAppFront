@@ -4,12 +4,14 @@ import DataUser from '../components/DataUser'
 import { useGetCustomerCarts } from '../../../Hooks/useCustomers'
 import TableCustomerCart from '../components/TableCustomerCart'
 import TableSales from '../components/TableSales'
+import { useGetAllBranches } from '../../../Hooks/useBranchs'
 
 
 function OrdersCustomer() {
     
     const { cuid } = useParams()
     const {cartsCustomer, isLoading} = useGetCustomerCarts(cuid)
+    const {allBranches} = useGetAllBranches()
     return (
         <>
 
@@ -20,7 +22,7 @@ function OrdersCustomer() {
                 <section className="contMen d-block top-0 w-100">
                     <DataUser />
                     <div className="container-lg">
-                        <TableCustomerCart cartsCustomer={cartsCustomer} customer={cartsCustomer.customer} isLoading={isLoading}/>
+                        <TableCustomerCart cartsUser={cartsCustomer} isLoading={isLoading} allBranches={allBranches}/>
                         
                         {/* <TableSales allSales={cartsCustomer}/> */}
 

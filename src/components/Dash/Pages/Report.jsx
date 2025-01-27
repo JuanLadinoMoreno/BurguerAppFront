@@ -6,6 +6,7 @@ import Graphics from '../components/Graphics'
 import { useGetAllAmount, useGetAllCarts, useGetAlltickets, useGetSalesForCategoryMonth, useGetSalesForMonth } from '../../../Hooks/useSales'
 import { useGetCategories } from '../../../Hooks/useProducts'
 import TableOrders from '../components/TableOrders'
+import { useGetAllBranches } from '../../../Hooks/useBranchs'
 
 
 function Report() {
@@ -16,6 +17,7 @@ function Report() {
     // const { salesCategoryMonth } = useGetSalesForCategoryMonth('burguerP')
     // const { categories } = useGetCategories();
     const {allCarts, isLoadingCart} = useGetAllCarts()
+    const {allBranches} = useGetAllBranches()
 
     return (
         <>
@@ -28,7 +30,7 @@ function Report() {
                     <div className="container-lg">
                         <BannerSells totalSales={totalSales} monthsSales={monthsSales} allSales={allSales} />
                         <Graphics />
-                        <TableOrders allCarts={allCarts} isLoadingCart={isLoadingCart}/>
+                        <TableOrders allCarts={allCarts} isLoadingCart={isLoadingCart} cartsUser={allCarts} allBranches={allBranches}/>
                         <TableSales allSales={allSales} isLoading={isLoading} />
                     </div>
 

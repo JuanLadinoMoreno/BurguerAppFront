@@ -7,6 +7,7 @@ export const useFilterData = ({cartsUser=[]}) => {
         const [selectedStatus, setSelectedStatus] = useState("")
         const [selectedBranch, setSelectedBranch] = useState("")
         const [selectedClient, setSelectedClient] = useState("")
+        const [selectedWaiter, setSelectedWaiter] = useState("")
         const [selectedId, setSelectedId] = useState("")
 
         const applyFilters = () => {
@@ -39,21 +40,26 @@ export const useFilterData = ({cartsUser=[]}) => {
                     record.customer?.firstName?.toLowerCase().includes(selectedClient)
                 );
             }
-    
+            if (selectedWaiter.trim() !== "") {
+                filteredData = filteredData.filter(record =>
+                    record.user?.firstName?.toLowerCase().includes(selectedWaiter)
+                );
+            }           
             setsalesDataCopy(filteredData); // Actualiza los datos filtrados
         };
 
         const changeFlter = e => setSelectedId(e.target.value.toLowerCase());
         const changeFlterBranch = e => setSelectedBranch(e.target.value.toLowerCase());
         const changeFlterClient = e => setSelectedClient(e.target.value.toLowerCase());
+        const changeFlterWaiter = e => setSelectedWaiter(e.target.value.toLowerCase());
         const changeFlterState = e => setSelectedStatus(e.target.value.toLowerCase());
         const changeFlterType = e => setSelectedType(e.target.value.toLowerCase());
     
         useEffect(() => {
             applyFilters();
-        }, [selectedType, selectedStatus, selectedBranch, selectedClient, selectedId]);
+        }, [selectedType, selectedStatus, selectedBranch, selectedClient, selectedId, selectedWaiter]);
     
-        return {salesDataCopy, setsalesDataCopy, selectedId, selectedClient, selectedBranch, selectedStatus, selectedType, changeFlter, changeFlterBranch, changeFlterClient, changeFlterState, changeFlterType}
+        return {salesDataCopy, setsalesDataCopy, selectedId, selectedClient, selectedBranch, selectedStatus, selectedType, selectedWaiter, changeFlter, changeFlterBranch, changeFlterClient, changeFlterState, changeFlterType, changeFlterWaiter}
 
     } catch (error) {
 
