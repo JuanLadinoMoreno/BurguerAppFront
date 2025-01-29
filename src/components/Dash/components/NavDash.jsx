@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../../context/AuthContext';
 
 function NavDash() {
-  
 
+  const { user } = useAuth()
   const [isExpanded, setIsExpanded] = useState(true)
 
 
@@ -38,15 +39,19 @@ function NavDash() {
 
           <li className="sidebar-item">
             <Link to={"/dash/carts/user"} className="sidebar-link">
-            <i class="fa-solid fa-list-ol fs-4"></i>
+              <i class="fa-solid fa-list-ol fs-4"></i>
               <span>Mis Ordenes</span>
             </Link>
           </li>
 
-          
+
 
           <li className="sidebar-item">
-            <Link to={"/menu/products"} className="sidebar-link">
+            <Link
+              to={user.role === 'admin' ? "/menu/products" : "#"}
+              className={`sidebar-link ${user.role !== 'admin' ? ' opacity-50 pointer-events-none' : ''}`}
+              onClick={(e) => user.role !== 'admin' && e.preventDefault()}
+            >
               <i className="fa-solid fa-burger fs-4"></i>
               <span>Productos</span>
             </Link>
@@ -55,43 +60,63 @@ function NavDash() {
 
 
           <li className="sidebar-item">
-            <Link to={"/dash/users"} className="sidebar-link">
-            <i className="fa-regular fa-user fs-4"></i>
+            <Link
+              to={user.role === 'admin' ? "/dash/users" : "#"}
+              className={`sidebar-link ${user.role !== 'admin' ? ' opacity-50 pointer-events-none' : ''}`}
+              onClick={(e) => user.role !== 'admin' && e.preventDefault()}
+            >
+              <i className="fa-regular fa-user fs-4"></i>
               <span>Usuarios</span>
             </Link>
 
           </li>
 
           <li className="sidebar-item">
-            <Link to={"/dash/customers"} className="sidebar-link">
-            <i className="fa-solid fa-person fs-4"></i>
+            <Link
+              to={user.role === 'admin' ? "/dash/customers" : "#"}
+              className={`sidebar-link ${user.role !== 'admin' ? ' opacity-50 pointer-events-none' : ''}`}
+              onClick={(e) => user.role !== 'admin' && e.preventDefault()}
+            >
+              <i className="fa-solid fa-person fs-4"></i>
               <span>Clientes</span>
             </Link>
 
           </li>
 
           <li className="sidebar-item">
-            <Link to={"/dash/branches"} className="sidebar-link">
+            <Link
+              to={user.role === 'admin' ? "/dash/branches" : "#"}
+              className={`sidebar-link ${user.role !== 'admin' ? ' opacity-50 pointer-events-none' : ''}`}
+              onClick={(e) => user.role !== 'admin' && e.preventDefault()}
+            >
               <i className="fa-solid fa-store fs-4"></i>
               <span>Sucursales</span>
             </Link>
           </li>
 
           <li className="sidebar-item">
-            <Link to={"/dash/orders"} className="sidebar-link">
-            <i className="fa-regular fa-rectangle-list fs-4"></i>
+            <Link
+              to={user.role === 'admin' ? "/dash/orders" : "#"}
+              className={`sidebar-link ${user.role !== 'admin' ? ' opacity-50 pointer-events-none' : ''}`}
+              onClick={(e) => user.role !== 'admin' && e.preventDefault()}
+            >
+              <i className="fa-regular fa-rectangle-list fs-4"></i>
               <span>Ordenes</span>
-            </Link>
-          </li>
-          
-          <li className="sidebar-item">
-            <Link to={"/dash/report"} className="sidebar-link">
-            <i className="fa-solid fa-chart-line fs-4"></i>
-              <span>Reporte ventas</span>
             </Link>
           </li>
 
           <li className="sidebar-item">
+            <Link
+              to={user.role === 'admin' ? "/dash/report" : "#"}
+              className={`sidebar-link ${user.role !== 'admin' ? ' opacity-50 pointer-events-none' : ''}`}
+              onClick={(e) => user.role !== 'admin' && e.preventDefault()}
+            >
+              <i className="fa-solid fa-chart-line fs-4"></i>
+              <span>Reporte ventas</span>
+            </Link>
+          </li>
+
+          {/* <li className="sidebar-item">
             <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
               data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
               <i className="bi bi-clipboard2-data fs-4"></i>
@@ -105,7 +130,8 @@ function NavDash() {
                 <a href="#" className="sidebar-link">Register</a>
               </li>
             </ul>
-          </li>
+          </li> */}
+
           {/* <li className="sidebar-item">
               <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                 data-bs-target="#multi" aria-expanded="false" aria-controls="multi">

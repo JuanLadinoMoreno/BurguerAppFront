@@ -31,6 +31,7 @@ import Report from '../components/Dash/Pages/Report.jsx'
 import OrdersCustomer from '../components/Dash/Pages/OrdersCustomer.jsx'
 import OrdersUser from '../components/Dash/Pages/OrdersUser.jsx'
 import Orders from '../components/Dash/Pages/Orders.jsx'
+import ProtectedRouteAdmin from '../components/ProtectedRouteAdmin.jsx'
 
 // import login from '../components/Pages/Login/login.jsx'
 
@@ -63,32 +64,37 @@ export default function MainRouter() {
 
           {/* carrito en proceso de compra */}
           <Route path='/cart' element={<Cart />} />
-
-          <Route path='/menu/products' element={<Products />} />
-          <Route path='/menu/addproduct' element={<AddProducts />} />
-
           {/* ordenes de usuario */}
           <Route path='/dash/carts/user' element={<TableCarts />} />
           {/* Crea Ticket de orden / cierra compra */}
           <Route path='/dash/order/:cid' element={<EditOrder />} />
-          <Route path='/dash/orders/user/:uid' element={<OrdersUser />} />
 
-          {/* users */}
-          <Route path='/dash/users' element={<Users />} />
-          <Route path='/dash/adduser' element={<CreateUser />} />
+          <Route element={<ProtectedRouteAdmin />}>
 
-          {/* Customers */}
-          <Route path='/dash/customers' element={<Customers />} />
-          <Route path='/dash/addcustomer' element={<CreateCustomer />} />
-          <Route path='/dash/customer/:cuid' element={<OrdersCustomer />} />
+            {/* Productos */}qwe123
+            <Route path='/menu/products' element={<Products />} />
+            <Route path='/menu/addproduct' element={<AddProducts />} />
 
-          {/* Branches */}
-          <Route path='/dash/branches' element={<Branches />} />
+            {/* users */}
+            <Route path='/dash/users' element={<Users />} />
+            <Route path='/dash/adduser' element={<CreateUser />} />
+            <Route path='/dash/orders/user/:uid' element={<OrdersUser />} />
 
-          
-          <Route path='/dash/report' element={<Report />} />
-          
-          <Route path='/dash/orders' element={<Orders />} />
+            {/* Customers */}
+            <Route path='/dash/customers' element={<Customers />} />
+            <Route path='/dash/addcustomer' element={<CreateCustomer />} />
+            <Route path='/dash/customer/:cuid' element={<OrdersCustomer />} />
+
+            {/* Branches */}
+            <Route path='/dash/branches' element={<Branches />} />
+
+            {/* Report */}
+            <Route path='/dash/report' element={<Report />} />
+
+            {/* Orders */}
+            <Route path='/dash/orders' element={<Orders />} />
+
+          </Route>
 
         </Route>
 
