@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import ModalDataOrder from './ModalDataOrder';
 import { useFilterData } from '../../../Hooks/useFilterData';
+import { utilsExportToExcel } from '../../../utils/excelUtils';
 
 
 const customStyles = {
@@ -44,6 +45,27 @@ function TableOrders({ isLoadingCart, cartsUser, allBranches }) {
     const openModal = (row) => {
         setRowSelected(row)
     }
+
+    const exportToExcel = () => {
+    
+            const data = salesDataCopy.map(ticket => {
+                return ({
+                    Codigo: ticket._id.substr(-4, 4),
+                    Estatus: ticket.status,
+                    Tipo: ticket.orderType,
+                    Vendedor: ticket.user != null ? ticket.user.firstName + ' ' + ticket.user.lastName : '',
+                    Cliente: ticket.customer != null ? ticket.customer.firstName + ' ' + ticket.customer.lastName : '',
+                    EmailCliente: ticket.customer != null ? ticket.customer.email : '',
+                    Sucarsal: ticket.branch.name,
+                    FechaVenta: new Date(ticket.createdAt).toLocaleDateString('es-ES'),
+                    Monto: ticket.totalPrice,
+                })
+            })
+    
+            utilsExportToExcel(data, 'Ordenes', 'ordenes')
+    
+            
+        };
 
     const columns = [
         {
@@ -215,7 +237,7 @@ function TableOrders({ isLoadingCart, cartsUser, allBranches }) {
 
                             <div className='col-lg-2 col-md-6 d-flex  justify-content-end align-items-center' >
 
-                                <button className={`btn-prin float-end mt-2 mb-2 `} >
+                                <button className={`btn-prin float-end mt-2 mb-2 `} onClick={exportToExcel} >
                                     {/* className={`btn-prin float-end mt-2 mb-2 ${isLoading ? 'catSelectActive' : ''}`} */}
                                     <i className="fa-solid fa-file-excel fs-4 p-2"></i>
                                     {/* <i className="fa-solid fa-download fs-4 p-2"></i> */}

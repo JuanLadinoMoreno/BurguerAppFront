@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { useFilterDataTickets } from '../../../Hooks/useFilterData';
+import { utilsExportToExcel } from '../../../utils/excelUtils';
 
 
 const customStyles = {
@@ -26,10 +28,10 @@ const customStyles = {
     // },d
 };
 
-function TableSales({ allSales, isLoading }) {
+function TableSales({ allSales, isLoading, allBranches }) {
 
+    const { salesDataCopy, setsalesDataCopy, selectedBranch, selectedType, changeFlter, changeFlterBranch, changeFlterType, changeFlterWaiter,  changeFlterClient, changeFlterTicketCode} = useFilterDataTickets({ allSales })
     const [rowSelected, setRowSelected] = useState(null)
-    const [allSalesDataCopy, setAllSalesDataCopy] = useState([])
 
     const openModal = (row) => {
         setRowSelected(row)
@@ -94,30 +96,13 @@ function TableSales({ allSales, isLoading }) {
     // crea una copia para poder filtrarlos
     useEffect(() => {
         if (allSales) {
-            setAllSalesDataCopy(allSales);
+            setsalesDataCopy(allSales);
         }
     }, [allSales]);
 
-    const changeFlter = (e) => {
-
-        const searchText = e.target.value.toLowerCase()
-
-        if (searchText === "")
-            setAllSalesDataCopy(allSales)
-
-        const dataFilter = allSales.filter(record => {
-            return record.code.toLowerCase().includes(searchText)
-        })
-        setAllSalesDataCopy(dataFilter)
-
-
-    }
-
-
-
     const exportToExcel = () => {
 
-        const data = allSales.map(ticket => {
+        const data = salesDataCopy.map(ticket => {
             return ({
                 Codigo: ticket.code,
                 // user: ticket.user.firstName + ticket.user.lastName,
@@ -129,19 +114,9 @@ function TableSales({ allSales, isLoading }) {
             })
         })
 
-        // Crea una hoja de trabajo con los datos
-        const ws = XLSX.utils.json_to_sheet(data);
+        utilsExportToExcel(data, 'DatosVentas', 'ventas')
 
-        // Crea un libro de trabajo y añade la hoja
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Productos');
-
-        // Genera el archivo Excel
-        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-
-        // Guarda el archivo usando FileSaver
-        const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-        saveAs(blob, 'ventas.xlsx');
+        
     };
 
 
@@ -154,11 +129,52 @@ function TableSales({ allSales, isLoading }) {
             <div className=" p-1 mt-3">
                 <h3 className='card-title mb-2 p-1'>Tickets de ventas</h3>
                 <div className={`container row ${isLoading ? 'disabled' : ''}`}>
-                    <div className='col-lg-4 col-md-6  '>
-                        <p>Filtrar por código</p>
+                    <div className='col-lg-1 col-md-6  '>
+                        <p>Filtrar por codigo</p>
+                        <input className="form-control" type="text" onChange={changeFlterTicketCode} />
+                    </div>
+                    <div className='col-lg-1 col-md-6  '>
+                        <p>Filtrar por orden</p>
                         <input className="form-control" type="text" onChange={changeFlter} />
                     </div>
-                    <div className='col-lg-8 col-md-6 d-flex  justify-content-end align-items-center' >
+                    <div className='col-lg-2 col-md-6  '>
+                        <p>Filtrar por nombre mesero</p>
+                        <input className="form-control" type="text" onChange={changeFlterWaiter} />
+                    </div>
+                    <div className='col-lg-2 col-md-6  '>
+                        <p>Filtrar por nombre cliente</p>
+                        <input className="form-control" type="text" onChange={changeFlterClient} />
+                    </div>
+
+                    <div className='col-lg-2 col-md-6  '>
+                        <p>Filtrar por sucursal</p>
+                        <select className='form-select' value={selectedBranch} onChange={changeFlterBranch} >
+                            <option value="">-Todos-</option>
+                            {
+                                allBranches.map(branch => (
+                                    <option value={branch.name.trim().toLowerCase()}>{branch.name.trim()}</option>
+                                ))
+                            }
+                        </select>
+                    </div>
+                    {/* <div className='col-lg-2 col-md-6  '>
+                                <p>Filtrar por estado</p>
+                                <select className='form-select' value={selectedStatus} onChange={changeFlterState} >
+                                    <option value="">-Todos-</option>
+                                    <option value="created">Creado</option>
+                                    <option value="finalized">Finalizado</option>
+                                    <option value="canceled">Cancelado</option>
+                                </select>
+                            </div> */}
+                    <div className='col-lg-2 col-md-6  '>
+                        <p>Filtrar por tipo</p>
+                        <select className='form-select' value={selectedType} onChange={changeFlterType} >
+                            <option value="">-Todos-</option>
+                            <option value="en mesa">En mesa</option>
+                            <option value="para llevar">Para llevar</option>
+                        </select>
+                    </div>
+                    <div className='col-lg-2 col-md-6 d-flex  justify-content-end align-items-center' >
 
                         <button className={`btn-prin float-end mt-2 mb-2 `} onClick={exportToExcel}>
                             {/* className={`btn-prin float-end mt-2 mb-2 ${isLoading ? 'catSelectActive' : ''}`} */}
@@ -172,7 +188,7 @@ function TableSales({ allSales, isLoading }) {
                 <DataTable
                     // title='Ventas'
                     columns={columns}
-                    data={allSalesDataCopy}
+                    data={salesDataCopy}
                     pagination
                     paginationPerPage={7}
                     paginationPosition="bottom"

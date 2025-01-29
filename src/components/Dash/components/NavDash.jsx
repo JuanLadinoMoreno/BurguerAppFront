@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
 function NavDash() {
+  
 
   const [isExpanded, setIsExpanded] = useState(true)
 
@@ -37,7 +38,7 @@ function NavDash() {
 
           <li className="sidebar-item">
             <Link to={"/dash/carts/user"} className="sidebar-link">
-              <i className="fa-regular fa-rectangle-list fs-4"></i>
+            <i class="fa-solid fa-list-ol fs-4"></i>
               <span>Mis Ordenes</span>
             </Link>
           </li>
@@ -76,6 +77,13 @@ function NavDash() {
             </Link>
           </li>
 
+          <li className="sidebar-item">
+            <Link to={"/dash/orders"} className="sidebar-link">
+            <i className="fa-regular fa-rectangle-list fs-4"></i>
+              <span>Ordenes</span>
+            </Link>
+          </li>
+          
           <li className="sidebar-item">
             <Link to={"/dash/report"} className="sidebar-link">
             <i className="fa-solid fa-chart-line fs-4"></i>

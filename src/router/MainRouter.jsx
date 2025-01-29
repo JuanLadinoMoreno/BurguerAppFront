@@ -30,6 +30,7 @@ import CreateCustomer from '../components/Dash/Pages/CreateCustomer.jsx'
 import Report from '../components/Dash/Pages/Report.jsx'
 import OrdersCustomer from '../components/Dash/Pages/OrdersCustomer.jsx'
 import OrdersUser from '../components/Dash/Pages/OrdersUser.jsx'
+import Orders from '../components/Dash/Pages/Orders.jsx'
 
 // import login from '../components/Pages/Login/login.jsx'
 
@@ -87,6 +88,7 @@ export default function MainRouter() {
           
           <Route path='/dash/report' element={<Report />} />
           
+          <Route path='/dash/orders' element={<Orders />} />
 
         </Route>
 
