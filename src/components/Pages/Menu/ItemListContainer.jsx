@@ -225,7 +225,7 @@ export default function ItemListContainer({ productsData, setProductsData, isLoa
             <section className="contMen d-block w-100 ">
                 <MenuProducts />
                 {
-                    isLoading ?
+                    (isLoading && productsData.length == 0) ?
                         // Default values shown
                         <>
                             <div className='container d-flex justify-content-center align-items-center h-50'>
@@ -243,8 +243,8 @@ export default function ItemListContainer({ productsData, setProductsData, isLoa
                                 
 
                                 {
-                                    (productsData.length == 0) ?
-                                    <h3 className="w-100 text-center">NO HAY PRODUCTOS</h3> :
+                                    // (productsData.length == 0 ) ?
+                                    // <h3 className="w-100 text-center">NO HAY PRODUCTOS</h3> :
                                     
 
                                     productsData.map(products => {

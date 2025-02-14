@@ -172,15 +172,15 @@ function Events() {
 
             <h2 className='title2'>Invítanos a tus mejores eventos</h2>
 
-            <div className='h-50'>
+            {/* <div className='h-50'>
 
-            <div className="sec0">
-                <div className="sec1"></div>
-                <div className="sec2"></div>
-                <div className="sec3"></div>
-                <div className="sec4"></div>
-            </div>
-            </div>
+                <div className="sec0">
+                    <div className="sec1"></div>
+                    <div className="sec2"></div>
+                    <div className="sec3"></div>
+                    <div className="sec4"></div>
+                </div>
+            </div> */}
 
             <h2 className='title2'>Ubicación</h2>
 

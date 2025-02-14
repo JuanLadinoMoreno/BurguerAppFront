@@ -26,6 +26,7 @@ import Users from '../components/Dash/Pages/Users.jsx'
 import CreateUser from '../components/Dash/Pages/CreateUser.jsx'
 import Customers from '../components/Dash/Pages/Customers.jsx'
 import Branches from '../components/Dash/Pages/Branches.jsx'
+import CreateBranches from '../components/Dash/Pages/CreateBranches.jsx'
 import CreateCustomer from '../components/Dash/Pages/CreateCustomer.jsx'
 import Report from '../components/Dash/Pages/Report.jsx'
 import OrdersCustomer from '../components/Dash/Pages/OrdersCustomer.jsx'
@@ -71,7 +72,7 @@ export default function MainRouter() {
 
           <Route element={<ProtectedRouteAdmin />}>
 
-            {/* Productos */}qwe123
+            {/* Productos */}
             <Route path='/menu/products' element={<Products />} />
             <Route path='/menu/addproduct' element={<AddProducts />} />
 
@@ -87,6 +88,7 @@ export default function MainRouter() {
 
             {/* Branches */}
             <Route path='/dash/branches' element={<Branches />} />
+            <Route path='/dash/addbranch' element={<CreateBranches />} />
 
             {/* Report */}
             <Route path='/dash/report' element={<Report />} />
@@ -99,7 +101,7 @@ export default function MainRouter() {
         </Route>
 
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   )
 }

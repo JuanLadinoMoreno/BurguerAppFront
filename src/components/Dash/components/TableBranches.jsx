@@ -177,8 +177,7 @@ function TableBranches({ allBranches, setAllBranches, isLoading }) {
                     <input className="form-control" type="text" onChange={changeFlter} />
                 </div>
                 <div className='col-lg-4 d-flex justify-content-center align-items-center'>
-                    <button className=' btn-prin m-1' data-bs-toggle="modal" data-bs-target="#modalBranchCreate"> <i className="fab fa-plus m-1"></i> Crear </button>
-                    <ModalBranch/>
+                    <Link to={"/dash/addbranch"} className=' btn-prin m-1' > <i className="fab fa-plus m-1"></i> Crear </Link>
                 </div>
 
             </div>

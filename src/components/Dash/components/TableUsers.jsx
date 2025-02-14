@@ -3,10 +3,12 @@ import DataTable from 'react-data-table-component'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { useDeleteUser, useUpdateUser } from '../../../Hooks/useUsers'
+import { useGetBranchesAvailables } from '../../../Hooks/useBranchs'
 
 
 
 function TableUsers({ usersData, setUsersData, isLoading }) {
+    const { branches } = useGetBranchesAvailables()
 
     const { register, formState: { errors }, handleSubmit, watch, setValue } = useForm()
 
@@ -16,7 +18,7 @@ function TableUsers({ usersData, setUsersData, isLoading }) {
     // crea una copia para poder filtrarlos
     useEffect(() => {
         if (usersData) {
-            setUsersDataCopy(usersData);
+            setUsersDataCopy(structuredClone(usersData));
         }
     }, [usersData]);
 
@@ -75,19 +77,18 @@ function TableUsers({ usersData, setUsersData, isLoading }) {
                     const resp = await useUpdateUser(rowSelected._id, product);
 
                     if (resp) {
-                        console.log(resp);
 
-                        // const clonProds = structuredClone(usersData);
-                        // const index = clonProds.findIndex(prod => prod.id === rowSelected._id);
-                        // if (index !== -1) {
-                        //     clonProds[index] = {
-                        //         ...clonProds[index],
-                        //         ...resp.data.payload
-                        //     }
-                        // }
-                        // setUsersData(clonProds);
-
-                        Swal.fire(`Producto actualizado `, '', "info");
+                        const clonProds = structuredClone(usersData);
+                        const index = clonProds.findIndex(prod => prod._id === rowSelected._id);
+                        if (index !== -1) {
+                            clonProds[index] = {
+                                ...clonProds[index],
+                                ...resp.data.payload
+                            }
+                        }
+                        setUsersData(clonProds);
+                        
+                        Swal.fire(`Usuario actualizado `, '', "info");
 
                         const modalElement = document.getElementById('modalUser');
                         const modalInstance = bootstrap.Modal.getInstance(modalElement); // Obtener la instancia del modal
@@ -95,7 +96,7 @@ function TableUsers({ usersData, setUsersData, isLoading }) {
                         // Swal.fire(`Producto actualizado `, `ID:`, "info");
                         // window.location.href = '/menu/products'
                     } else {
-                        Swal.fire("No fue posible actualizar el producto", "", "danger");
+                        Swal.fire("No fue posible actualizar el usuario", "", "danger");
                     }
                 } catch (err) {
                     // Asegúrate de que el error capturado provenga de la API y tenga el formato esperado
@@ -108,7 +109,7 @@ function TableUsers({ usersData, setUsersData, isLoading }) {
                         //     Swal.fire("Error al eliminar el producto", err.response.data.message || "Error desconocido", "danger");
                         // }
                     } else {
-                        Swal.fire("Error al actualizar el producto", "Error desconocido", "danger");
+                        Swal.fire("Error al actualizar el usuario", "Error desconocido", "danger");
                     }
                     console.log('err', err);
                 }
@@ -287,7 +288,7 @@ function TableUsers({ usersData, setUsersData, isLoading }) {
                                 <form onSubmit={handleSubmit(updateUser)} className=" d-flex flex-column justify-content-center align-item-center gap-3 p-3 w-50 border-warning border-2 border-opacity-50 shadow-lg">
 
                                     <h2>Actualizar usuario</h2>
-                                    
+
                                     <div className="row">
 
                                         <div className="col-lg-12 d-flex justify-content-center align-items-start flex-column mb-3">
@@ -348,7 +349,6 @@ function TableUsers({ usersData, setUsersData, isLoading }) {
                                             <select className="form-select" {...register('role')}>
                                                 <option value="admin">Adminstrador</option>
                                                 <option value="user" >Usuario</option>
-                                                <option value="premium" >Premium</option>
                                             </select>
                                         </div>
                                         <div className="row">

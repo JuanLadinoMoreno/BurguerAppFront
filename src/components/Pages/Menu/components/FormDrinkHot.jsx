@@ -36,7 +36,7 @@ function FormDrinkHot({ control, register, errors, setValue, categoriaSelecciona
         <>
 
             <div className="col-md-6 d-flex justify-content-center align-items-start flex-column">
-                <label className="form-label">Categoría</label>
+                <label className="form-label">Tipo</label>
                 <input
                     className="form-control text-uppercase"
                     type="text"
@@ -49,7 +49,7 @@ function FormDrinkHot({ control, register, errors, setValue, categoriaSelecciona
                         required: true
                     })}
                     />
-                    {errors.categoria?.type === 'required' && <p className="text-danger"> El campo categoria es requerido</p>}
+                    {errors.categoria?.type === 'required' && <p className="text-danger"> El campo tipo es requerido</p>}
                 <label className="form-label">Nombre Producto</label>
                 <input
                     className="form-control"

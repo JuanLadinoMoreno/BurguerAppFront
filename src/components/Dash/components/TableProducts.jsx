@@ -103,7 +103,7 @@ function TableProducts({ productsData, setProductsData, isLoading }) {
                         }
                         setProductsData(clonProds);
 
-                        Swal.fire(`Producto actualizado `, `ID: ${resp.data.payload.id}`, "info");
+                        Swal.fire(`Producto actualizado `, `ID: ${resp.data.payload.id.substr(-4,4)}`, "info");
                         const modalElement = document.getElementById('modalProduct');
                         const modalInstance = bootstrap.Modal.getInstance(modalElement); // Obtener la instancia del modal
                         modalInstance.hide();
@@ -182,13 +182,9 @@ function TableProducts({ productsData, setProductsData, isLoading }) {
         }
     };
 
-    const changeDobleClicRow = (row) => {
-        console.log(row);
-
-    }
 
     const openModal = (row) => {
-        // console.log('row -------->  ', row);
+        console.log('row -------->  ', row);
 
         setProductSelected(row)
     }
@@ -247,7 +243,7 @@ function TableProducts({ productsData, setProductsData, isLoading }) {
                 return (
                     <FormDrinkHot control={control} register={register} errors={errors} setValue={setValue} categoriaSeleccionada="bebida"/>
                 )
-            case 'snackP':
+            case 'snacksP':
                 return (
                     <FormSnacks control={control} register={register} errors={errors} setValue={setValue} categoriaSeleccionada="snack"/>
                 )
@@ -264,7 +260,7 @@ function TableProducts({ productsData, setProductsData, isLoading }) {
         // },
         {
             name: 'ID',
-            selector: row => row.id,
+            selector: row => row.id.substr(-4,4),
             sortable: true,
         },
         {
@@ -379,7 +375,6 @@ function TableProducts({ productsData, setProductsData, isLoading }) {
                 data={productsDataCopy}
                 // defaultSortFieldId={1}
                 // selectableRows
-                onRowDoubleClicked={changeDobleClicRow}
                 // pointerOnHover='true'
                 // highlightOnHover= 'true'
                 pagination

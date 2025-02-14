@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import NavDash from '../components/NavDash'
 import DataUser from '../components/DataUser'
 import { Link } from 'react-router-dom'
 import { useCreateUser } from '../../../Hooks/useUsers'
 import { onRegister, onRegisterUser } from '../../../services'
+import { useGetBranchesAvailables } from '../../../Hooks/useBranchs'
 
 
 function CreateUser() {
 
-    const { register, formState: { errors }, handleSubmit } = useForm()
+    const { branches } = useGetBranchesAvailables()
+
+    const { register, formState: { errors }, handleSubmit, reset, setValue } = useForm()
+
+    useEffect(() => {
+        if (branches.length > 0) {
+            setValue('branch', branches[0].id); // Seleccionar el primer valor disponible
+        }
+    }, [branches, setValue]);
 
     const onSubmitUser = async (data) => {
 
@@ -38,7 +47,7 @@ function CreateUser() {
                     if (resp) {
                         // console.log('resp', resp);
                         Swal.fire("Usuario creado!", "", "info");
-
+                        reset()
                     }
                     else {
                         Swal.fire("No pue posible guardar el usuario", "", "danger");
@@ -157,6 +166,17 @@ function CreateUser() {
                                         <option value="admin">Adminstrador</option>
                                         <option value="user" >Usuario</option>
                                     </select>
+                                </div>
+                                <div className="col-lg-6 d-flex justify-content-center align-items-start flex-column mb-3">
+                                    <label className="form-label">Sucursal</label>
+                                    <select className="form-select" {...register('branch')}>
+                                        {
+                                            branches.map(branch => (
+                                                <option value={branch.id} >{branch.name}</option>
+                                            ))
+                                        }
+                                    </select>
+                                    {errors.branch?.type === 'required' && <p className="text-danger"> Debe seleccionar una sucursal</p>}
                                 </div>
                                 <div className="row">
 

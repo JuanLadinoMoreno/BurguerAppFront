@@ -180,7 +180,7 @@ export const TableCarts = () => {
                                     {
 
                                         !CartsByUser.length > 0 ?
-                                            <h2>No hay ordenes creadas</h2> :
+                                            <h2 className='text-center text-danger'>No hay ordenes creadas</h2> :
                                             (
 
                                                 // roblesAdmin89

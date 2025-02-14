@@ -381,7 +381,7 @@ export const Cart = () => {
   const buyCart = async () => {
     try {
       const title = isEdit ?
-        `Desea actualizar la orden ${idCard}` :
+        `Desea actualizar la orden ${idCard.substr(-4,4)}` :
         'Desea crear la orden'
       const result = await Swal.fire({
         title: title,
@@ -423,7 +423,7 @@ export const Cart = () => {
                 position: "center",
                 icon: "success",
                 title: "Orden actualizada",
-                text: idCard,
+                text: idCard.substr(-4,4),
                 // text: "Gracias por confiar en nosotros",
                 showConfirmButton: true,
                 // timer: 1500
@@ -723,9 +723,8 @@ export const Cart = () => {
                         </Link> */}
                       </div>
                       :
-                      <h2 id="carVacio" className="carVacio ">
-                        Tu carrito está vacío.
-                        <i className="bi bi-emoji-frown"></i>
+                      <h2 id="carVacio" className="carVacio text-center text-danger">
+                        Carrito vacío.
                       </h2>
 
                   }

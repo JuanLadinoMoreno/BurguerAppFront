@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 function CreateCustomer() {
 
-  const { register, formState: { errors }, handleSubmit } = useForm()
+  const { register, formState: { errors }, handleSubmit, reset } = useForm()
   const { isCreated, creaCustomer } = useCreateCustomer
 
 
@@ -39,7 +39,7 @@ function CreateCustomer() {
           if (resp) {
             // console.log('resp', resp);
             Swal.fire("Usuario creado!", "", "info");
-
+            reset()
           }
           else {
             Swal.fire("No pue posible guardar el usuario", "", "danger");
@@ -132,14 +132,15 @@ function CreateCustomer() {
                   <label className="form-label">Telefono</label>
                   <input
                     className="form-control"
-                    type="text"
-                    // placeholder="nombre producto"
-                    // nombre del campo para el form
+                    type="tel"
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    maxlength="12" 
+                    placeholder="000-000-0000"
                     {...register('phone', {
                       required: true
                     })}
                   />
-                  {errors.lastName?.type === 'required' && <p className="text-danger"> El campo apellido es requerido</p>}
+                  {errors.phone?.type === 'required' && <p className="text-danger"> El campo telefono es requerido</p>}
                 </div>
 
                 <div className="col-lg-8 d-flex justify-content-center align-items-start flex-column mb-3">
