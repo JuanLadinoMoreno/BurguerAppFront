@@ -1,18 +1,21 @@
 # BurguerRoblesApp 🍔🍟
 
-_Sitio web en donde los clientes podran encontrar informacion del negocio, asi como tambien poder realizar pedidos via web_
+_Plataforma web para la creacion y admimistración de comandas para pequeños restaurantes de comida rapida o cafeterías._
 
-## Comenzando 🚀
-
-_Dentro del la barra de navegacion se encuentra la seccion 'menú', al dar clic nos envia a la página donde nos mostrara todos los productos, tambien nos mostrara un menu de los diferentes tipos(categorias) de prductos que hay, al dar clic se muestran productos del tipo seleccionado.Al dar clic en la imagen del producto o en el boton de Ordenar nos mostratrá en otra ruta el detalle del producto con la opcion de sumar o restar la cantidad a ordenar con botones + y -, al dar clic en el boton "Agragar al carrito" nos mostrará una  alerta del producto agregado al carrito y al mismo timepo cambia el valor del carrito del menú, se puede seguir seleccionando productos del carrito para agregarlos, al dar click en el botón que dice ¨🛒 En carrito¨, mastrará en forma de lista los productos que se encuentran almacenadas en el carrito, en cada producto hay un símbolo de basura 🗑 el cual al darle clic nos permintirá eliminar el producto del carrito, dentro de la misma pagina nos mostrada un boton para "Vaciar carrrito" el cual permite eliminar todos los productos del carrito, tambien se encuenra  un boton "Comprar ahora" el cual por el momento solo manda un mensaje de alerta de confirmacion y vacía el carrito._
-
+## Acciones 
+_- Administración de usuarios, clientes, productos y sucursales desde un panel de gestión._
+_- Implementación de autenticación segura con JWT y sistema de roles para gestionar permisos._
+_- Gestión de comandas para pedidos en mesa o para llevar._
+_- Generación de tickets, con opción de impresión o envío por correo electrónico._
+_- Dashboard con reportes filtrables por sucursal, año y categoría._
+_- Funcionalidad para exportar datos en Excel, facilitando el análisis de ventas y la toma de decisiones._
 
 ### Pre-requisitos 📋
 
 _Que cosas necesitas para instalar el software_
 
 ```
-Instalar node en su version v16.18.0
+Node.js en su version v16.18.0
 
 ```
 
@@ -23,7 +26,7 @@ _Descargar el repositorio, despues descomprimir el archivo zip y en seguida abri
 _En una nueva terminal ejecutar el comando npm -install_
 
 ```
-npm -install
+npm install
 ```
 
 ## Construido con 🛠️
@@ -33,7 +36,6 @@ _Tecnologias utilizadas_
 *  Bootstrap
 *  Sass
 *  Ract JS
-*  Firebase
 *  Toastify
 *  Sweet alert
 
@@ -42,11 +44,6 @@ _Tecnologias utilizadas_
 _Personas que ayudaron a levantar el proyecto desde sus inicios_
 
 * **Juan Simón Ladino Moreno** - *Trabajo Inicial* 
-
-
-## Expresiones de Gratitud 🎁
-
-* Gracias a mis profesores y compañeros que me han brindado su apoyo!
 
 ---
 ⌨️ con ❤️ por [S@YM0N] 😊
