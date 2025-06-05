@@ -114,15 +114,8 @@ export const AuthProvider = ({ children }) => {
             }
         } catch (error) {
             if (error.response) {
-                // console.log('error---->>>', error.response.data.error.join(' - '));
-                // Swal.fire('error.response?.data?.error[0]', "Permiso denegado", "warning");
-                console.log('error---->>>', error.response.data.error);
                 if (Array.isArray(error.response.data.error)) {
-                    console.log('entra');
                     const err = error.response.data.error.join('<br>')
-                    console.log('err', err);
-                    console.log('ERROR:', error.response?.data?.error);
-
                    return Swal.fire({
                         icon: 'warning',
                         // title: 'Permisos denegados',
