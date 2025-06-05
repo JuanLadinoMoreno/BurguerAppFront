@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
 
         async function checkLogin() {
             const cookies = Cookies.get();
-            
+
             if (cookies.token) {
                 try {
                     const res = await onVerifyToken(cookies.token)
@@ -108,22 +108,39 @@ export const AuthProvider = ({ children }) => {
 
         try {
             const resp = await onLogin(userP)
-            if(resp){
+            if (resp) {
                 setUser(resp.data.payload)
                 setIsAuthenticated(true)
             }
         } catch (error) {
             if (error.response) {
-                Swal.fire(error.response.data.error, "Permiso denegado", "warning");
+                // console.log('error---->>>', error.response.data.error.join(' - '));
+                // Swal.fire('error.response?.data?.error[0]', "Permiso denegado", "warning");
+                console.log('error---->>>', error.response.data.error);
+                if (Array.isArray(error.response.data.error)) {
+                    console.log('entra');
+                    const err = error.response.data.error.join('<br>')
+                    console.log('err', err);
+                    console.log('ERROR:', error.response?.data?.error);
+
+                   return Swal.fire({
+                        icon: 'warning',
+                        // title: 'Permisos denegados',
+                        // text: err
+                        html: err
+                    });
+                }
+                Swal.fire('', error.response.data.error, "warning");
+                // Swal.fire(error.response.data.error[0], "Permiso denegadossssss", "warning");
                 // if (err.response.status === 403) {
                 //     const errorMessage = err.response.data.message[0];
                 //     Swal.fire("Permiso denegado", errorMessage, "warning");
                 // } else {
                 //     Swal.fire("Error al eliminar el producto", err.response.data.message || "Error desconocido", "danger");
                 // }
-              } else {
+            } else {
                 Swal.fire("Error al entrar al sistema", "Error desconocido", "danger");
-              }
+            }
         }
 
     }

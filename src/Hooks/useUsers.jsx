@@ -36,12 +36,7 @@ export const useGetUsers = () => {
 export const useCreateUser = async (user) => {
     const [usersData, setUsersData] = useState([])
     try {
-        // console.log('userP', userP);
         return resp = await onRegister(user)
-     
-        // console.log('resp.data', resp.data);
-
-        // setIsAuthenticated(true)
     } catch (error) {
         console.log(error);
     }

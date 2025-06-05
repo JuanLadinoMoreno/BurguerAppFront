@@ -34,8 +34,6 @@ export const useGetAlltickets = () => {
 }
 
 
-// const [totalTickets, setTotalTickets] = useState(0)
-
 export const useGetAllAmount = () => {
 
     const [totalSales, setTotalSales] = useState(0)
@@ -65,7 +63,6 @@ export const useGetAllAmount = () => {
 }
 
 export const useGetSalesForMonth = (year, branch) => {
-    const yearr = new Date("2025-01-01")
     const [salesForMonth, setSalesForMonth] = useState([])
 
 

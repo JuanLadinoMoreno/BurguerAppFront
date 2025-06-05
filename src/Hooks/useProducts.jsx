@@ -1,10 +1,8 @@
 
 import { useState, useEffect } from 'react';
-import { collection, getDocs, doc, getDoc, getFirestore, query, where, orderBy } from 'firebase/firestore';
 import { getProducts, getProductById, deleteProduct, saveProduct, getCategories, getProductByCategory, updateProduct } from '../services'
 
 
-// export const useGetProducts = (collectionName = 'products') => {
 export const useGetProducts = () => {
     const [productsData, setProductsData] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
@@ -27,25 +25,6 @@ export const useGetProducts = () => {
 
             obtenerProductos()
 
-            // getProducts()
-            //     .then((resp) => {
-            //         setProductsData(resp.data.payload)
-            //     })
-            //     .catch((err) => {
-            //         console.log(err);
-            //     })
-
-            // setProductsData(getProducts.map((doc) => ({ id: doc.id, ...doc.data() })))
-
-            //CON FIRESTORE
-            // const db = getFirestore();
-            // const productsCollection = collection(db, collectionName);
-            // // const quer = id ? query(productsCollection, where("category", "==", 'burguerP')) : productsCollection;
-            // const q = query(productsCollection, orderBy("category"));
-            // getDocs(q).then((snapshot) => {
-            //     setProductsData(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })))
-            // })
-
             setIsLoading(false);
         }, 1500);
 
@@ -56,25 +35,19 @@ export const useGetProducts = () => {
 
 export const useGetProductsCat = (id) => {
     const [productsData, setProductsData] = useState([]);
-    // const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
 
-        // setTimeout(() => {
-
-        getProductByCategory(id)
-            .then((resp) => {
+        const obtenerProducto = async (id) => {
+            try {
+                const resp = await getProductByCategory(id);
                 setProductsData(resp.data.payload)
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+            } catch (error) {
+                console.log(error);
+            }
+        }
 
-
-
-
-        // setIsLoading(false);
-        // }, 3500);
+        obtenerProducto(id)
 
     }, [id]);
 
@@ -84,33 +57,17 @@ export const useGetProductsCat = (id) => {
 
 //obtiene los productos del carrito
 export const useGetProductsCart = (carrito) => {
-    // const [productsData, setProductsData] = useState([]);
-    console.log('useGetProductsCart------>  ', carrito);
 
 
-    // console.log('carrito', carrito);
     const [isLoading, setIsLoading] = useState(true)
     const [cart, setCart] = useState([])
 
     useEffect(() => {
-        console.log('**********************************************************', carrito);
         setTimeout(() => {
-            const arrCart = []
-            // console.log('carrito[i].piadasdjahsdkjgakjsdgkajgsdkjatgsd', carrito);
-
-            getProducts()
-                .then((products) => {
-                    // products.data.payload.map(product => {
-                    //     for (let i = 0; i < carrito.length; i++) {
-
-                    //         console.log('carrito[i].pid', carrito[i].pid);
-                    //         console.log('product.id', product.id);
-                    //         if (carrito[i].pid == product.id) {
-                    //             arrCart.push({ product, id: product.id, quantity: carrito[i].quantity })
-                    //         }
-                    //     }
-                    // })
-
+            const getAllProductsCart = async () => {
+                try {
+                    const products = await getProducts();
+            
                     const arrCart = products.data.payload.reduce((acc, product) => {
                         const itemInCart = carrito.find(item => item.pid === product.id);
                         if (itemInCart) {
@@ -125,39 +82,39 @@ export const useGetProductsCart = (carrito) => {
                         }
                         return acc;
                     }, []);
-
-                    console.log('arrCart------------', arrCart);
-
+                                
                     setCart(arrCart);
                     setIsLoading(false);
-
-                })
-                .catch((err) => {
+            
+                } catch (err) {
                     console.log(err);
-                })
+                }
+            }
 
-            // console.log('cartUse',cart);
+            getAllProductsCart()
 
-            // const db = getFirestore();
-            // const productsCollection = collection(db, 'products');
-            // getDocs(productsCollection).then((snapshot) => {
+                // console.log('cartUse',cart);
 
-            //     snapshot.docs.map((doc) => {
+                // const db = getFirestore();
+                // const productsCollection = collection(db, 'products');
+                // getDocs(productsCollection).then((snapshot) => {
 
-            //         for (let i = 0; i < carrito.length; i++) {
-            //             if (doc.id === carrito[i].id) {
-            //                 arrCart.push({ ...doc.data(), id: doc.id, quantity: carrito[i].quantity })
-            //             }
+                //     snapshot.docs.map((doc) => {
 
-            //         }
+                //         for (let i = 0; i < carrito.length; i++) {
+                //             if (doc.id === carrito[i].id) {
+                //                 arrCart.push({ ...doc.data(), id: doc.id, quantity: carrito[i].quantity })
+                //             }
+
+                //         }
 
 
-            //     })
+                //     })
 
 
-            //     setCart(arrCart);
-            //     // setProductsData(arrCart);
-            //     setIsLoading(false);
+                //     setCart(arrCart);
+                //     // setProductsData(arrCart);
+                //     setIsLoading(false);
 
             // })
 

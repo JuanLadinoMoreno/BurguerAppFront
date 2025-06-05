@@ -153,7 +153,10 @@ function CreateUser() {
                                     <input
                                         className="form-control"
                                         type="number"
+                                        min={1}
+                                        max={99}
                                         {...register('age', {
+                                            valueAsNumber:true,
                                             required: true
                                         })}
                                     />
@@ -162,7 +165,7 @@ function CreateUser() {
 
                                 <div className="col-lg-6 d-flex justify-content-center align-items-start flex-column mb-3">
                                     <label className="form-label">Tipo</label>
-                                    <select className="form-select" {...register('tipo')}>
+                                    <select className="form-select" {...register('role')}>
                                         <option value="admin">Adminstrador</option>
                                         <option value="user" >Usuario</option>
                                     </select>

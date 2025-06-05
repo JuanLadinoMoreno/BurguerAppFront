@@ -96,7 +96,7 @@ function TableUsers({ usersData, setUsersData, isLoading }) {
                         // Swal.fire(`Producto actualizado `, `ID:`, "info");
                         // window.location.href = '/menu/products'
                     } else {
-                        Swal.fire("No fue posible actualizar el usuario", "", "danger");
+                        Swal.fire("No fue posible actualizar el usuario", "Verifique que los datos sean correctos", "danger");
                     }
                 } catch (err) {
                     // Asegúrate de que el error capturado provenga de la API y tenga el formato esperado
