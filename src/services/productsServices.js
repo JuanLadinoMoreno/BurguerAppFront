@@ -54,8 +54,8 @@ export async function saveProduct(product){
         // console.log('true');
         return resp
     }catch(error){
-        // console.log('false');
-        console.log('Erroro al conextarse al servidor paa crear producto', error);
+        // // console.log('false');
+        // console.log('Erroro al conextarse al servidor paa crear producto', error);
         throw error
     }
 }

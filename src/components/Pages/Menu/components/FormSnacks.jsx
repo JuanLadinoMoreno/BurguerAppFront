@@ -184,8 +184,12 @@ function FormSnacks({ control, register, errors, setValue, categoriaSeleccionada
                                         <input
                                             className="form-control"
                                             type="number"
+                                            min={0}
                                             placeholder="Precio del tamaño"
-                                            {...register(`tamanos.${index}.precio`, { required: 'Campo obligatorio' })}
+                                            {...register(`tamanos.${index}.precio`, {
+                                                required: 'Campo obligatorio',
+                                                valueAsNumber:true,
+                                        })}
                                         />
                                     </div>
                                     {errors?.tamanos?.[index]?.nombre && (

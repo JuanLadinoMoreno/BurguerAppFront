@@ -314,8 +314,12 @@ function FormHotDog({ control, register, errors, setValue, categoriaSeleccionada
                             <input
                                 className="form-control"
                                 type="number"
+                                min={0}
                                 placeholder="Precio extra"
-                                {...register(`ingredientesRevolcado.${index}.precio`, { required: 'Campo obligatorio' })}
+                                {...register(`ingredientesRevolcado.${index}.precio`, { 
+                                    required: 'Campo obligatorio',
+                                    valueAsNumber:true,
+                                })}
                             />
                             <button className=" btn btn-danger" type="button" onClick={() => removeRevolcado(index)}><i className="bi bi-trash"></i></button>
                         </div>
@@ -349,8 +353,12 @@ function FormHotDog({ control, register, errors, setValue, categoriaSeleccionada
                             <input
                                 className="form-control"
                                 type="number"
+                                min={0}
                                 placeholder="Precio del ingrediente extra"
-                                {...register(`ingredientesExtra.${index}.precio`, { required: 'Campo obligatorio' })}
+                                {...register(`ingredientesExtra.${index}.precio`, { 
+                                    required: 'Campo obligatorio',
+                                    valueAsNumber:true,
+                                })}
                             />
                             <button className=" btn btn-danger" type="button" onClick={() => removeIngredientes(index)}><i className="bi bi-trash"></i></button>
                         </div>

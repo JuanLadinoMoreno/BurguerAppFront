@@ -239,6 +239,7 @@ function FormBurguer({ control, register, errors, setValue, categoriaSeleccionad
                     <input
                         className="form-control"
                         type="number"
+                        min={1}
                         // placeholder="Precio"d
                         {...register('precio', {
                             required: true,
@@ -305,8 +306,12 @@ function FormBurguer({ control, register, errors, setValue, categoriaSeleccionad
                                         <input
                                             className="form-control"
                                             type="number"
+                                            min={0}
                                             placeholder="Precio del tamaño"
-                                            {...register(`tamanos.${index}.precio`, { required: 'Campo obligatorio' })}
+                                            {...register(`tamanos.${index}.precio`, { 
+                                                valueAsNumber:true,
+                                                required: 'Campo obligatorio' 
+                                            })}
                                         />
                                     </div>
                                     {errors?.tamanos?.[index]?.nombre && (
@@ -347,8 +352,12 @@ function FormBurguer({ control, register, errors, setValue, categoriaSeleccionad
                             <input
                                 className="form-control"
                                 type="number"
+                                min={0}
                                 placeholder="Precio del ingrediente extra"
-                                {...register(`ingredientesExtra.${index}.precio`, { required: 'Campo obligatorio' })}
+                                {...register(`ingredientesExtra.${index}.precio`, { 
+                                    valueAsNumber:true,
+                                    required: 'Campo obligatorio' 
+                                })}
                             />
                             <button className=" btn btn-danger" type="button" onClick={() => removeIngredientes(index)}><i className="bi bi-trash"></i></button>
                         </div>

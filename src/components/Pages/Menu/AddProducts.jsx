@@ -129,10 +129,10 @@ export default function AddProducts() {
   //   name: 'ingredientesExtras'
   // });
 
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: 'sabores'
-  });
+  // const { fields, append, remove } = useFieldArray({
+  //   control,
+  //   name: 'sabores'
+  // });
 
   // const { fields: saboresFields, append: appendSabor, remove: removeSabor } = useFieldArray({
   //   control,
@@ -548,6 +548,14 @@ export default function AddProducts() {
 
             else if (error.response.status === 403) {
               Swal.fire("Permiso denegado", error.response.data.message[0], "warning");
+            } else if (Array.isArray(error.response.data.error)) { //Error de zoderror);              
+              const err = error.response.data.error.join('<br>')
+              return Swal.fire({
+                icon: 'warning',
+                // title: 'Permisos denegados',
+                // text: err
+                html: err
+              });
             } else {
               Swal.fire("Error al eliminar el producto", err.response.data.message || "Error desconocido", "danger");
             }
@@ -579,7 +587,7 @@ export default function AddProducts() {
     <>
 
       <div className="wrapper">
-          <NavDash />
+        <NavDash />
 
         <div className="main">
           <DataUser />

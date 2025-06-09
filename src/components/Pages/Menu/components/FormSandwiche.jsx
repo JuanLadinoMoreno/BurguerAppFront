@@ -229,8 +229,12 @@ function FormSandwiche({ control, register, errors, setValue, categoriaSeleccion
                             <input
                                 className="form-control"
                                 type="number"
+                                min={0}
                                 placeholder="Precio extra"
-                                {...register(`ingredientesExtra.${index}.precio`, { required: 'Campo obligatorio' })}
+                                {...register(`ingredientesExtra.${index}.precio`, { 
+                                    required: 'Campo obligatorio',
+                                    valueAsNumber:true,
+                                })}
                             />
                             <button className=" btn btn-danger" type="button" onClick={() => removeIngredientes(index)}><i className="bi bi-trash"></i></button>
                         </div>
