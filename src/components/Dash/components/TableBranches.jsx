@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { useUpdateBranch } from '../../../Hooks/useBranchs';
 import ModalBranch from './ModalBranch';
+import { updateBranch } from "../../../services/branchServices";
 
 function TableBranches({ allBranches, setAllBranches, isLoading }) {
 
     const { register, formState: { errors }, handleSubmit, setValue } = useForm()
     const [allBranchesCopy, setAllBranchesCopy] = useState([])
     const [rowSelected, setRowSelected] = useState({})
+    // const { uUpdateBranch } = useUpdateBranch()
 
     useEffect(() => {
         if (allBranches) {
@@ -47,7 +48,7 @@ function TableBranches({ allBranches, setAllBranches, isLoading }) {
         setRowSelected(row)
     }
 
-    const updateBranch = async (branch) => {
+    const handleUpdateBranch = async (branch) => {
         try {
             const result = await Swal.fire({
                 title: "Quiere actualizar la sucursal?",
@@ -61,9 +62,8 @@ function TableBranches({ allBranches, setAllBranches, isLoading }) {
                 try {
 
 
-                    const resp = await useUpdateBranch(rowSelected._id, branch);
-
-                    if (resp) {
+                    const resp = await updateBranch(rowSelected._id, branch);
+                    if (resp.status === 200) {
 
                         const clonBranches = structuredClone(allBranches);
 
@@ -82,19 +82,27 @@ function TableBranches({ allBranches, setAllBranches, isLoading }) {
                         const modalElement = document.getElementById('modalBranch');
                         const modalInstance = bootstrap.Modal.getInstance(modalElement); // Obtener la instancia del modal
                         modalInstance.hide();
-                    } else {
+                    } 
+                    else {
                         Swal.fire("No fue posible actualizar la sucursal", "", "danger");
                     }
-                } catch (err) {
+                } catch (err) {              
                     // Asegúrate de que el error capturado provenga de la API y tenga el formato esperado
                     if (err.response) {
-                        Swal.fire("Error al actualizar", err.response.data.message[0], "warning");
+                        if (Array.isArray(err.response.data.message)) {
+                            Swal.fire("Error al actualizar", err.response.data?.message[0], "warning");
+                        } else if (Array.isArray(err.response.data.error)) {
+                            const erro = err.response.data.error.join('<br>')
+                            return Swal.fire({
+                                icon: 'warning',
+                                // title: 'Permisos denegados',
+                                // text: err
+                                html: erro
+                            });
+                        }
                         // if (err.response.status === 403) {
                         //     const errorMessage = err.response.data.message[0];
                         //     Swal.fire("Permiso denegado", errorMessage, "warning");
-                        // } else {
-                        //     Swal.fire("Error al eliminar el producto", err.response.data.message || "Error desconocido", "danger");
-                        // }
                     } else {
                         Swal.fire("Error al actualizar sucursal", "Error desconocido", "danger");
                     }
@@ -173,8 +181,8 @@ function TableBranches({ allBranches, setAllBranches, isLoading }) {
             <h3 className='text-center m-3 text-uppercase'> Lista de suscursales </h3>
             <div className='row d-flex justify-content-between align-items-center'>
                 <div className='col-lg-4'>
-                    <p>Filtrar por nombre sucursal</p>
-                    <input className="form-control" type="text" onChange={changeFlter} />
+                    <label htmlFor="filterBranch">Filtrar por nombre de sucursal</label>
+                    <input id="filterBranch" className="form-control" type="text" onChange={changeFlter} />
                 </div>
                 <div className='col-lg-4 d-flex justify-content-center align-items-center'>
                     <Link to={"/dash/addbranch"} className=' btn-prin m-1' > <i className="fab fa-plus m-1"></i> Crear </Link>
@@ -222,9 +230,9 @@ function TableBranches({ allBranches, setAllBranches, isLoading }) {
 
 
 
-                                <form onSubmit={handleSubmit(updateBranch)} className=" d-flex flex-column justify-content-center align-item-center gap-3 p-3 w-50 border-warning border-2 border-opacity-50 shadow-lg">
+                                <form onSubmit={handleSubmit(handleUpdateBranch)} className=" d-flex flex-column justify-content-center align-item-center gap-3 p-3 w-50 border-warning border-2 border-opacity-50 shadow-lg">
 
-                                    <h2>Actualizar cliente</h2>
+                                    <h2>Actualizar sucursal</h2>
                                     <div className="row">
 
                                         <div className="col-lg-12 d-flex justify-content-center align-items-start flex-column mb-3">
@@ -259,8 +267,8 @@ function TableBranches({ allBranches, setAllBranches, isLoading }) {
                                             <input
                                                 className="form-control"
                                                 type="tel"
-                                                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                                                maxlength="12" 
+                                                // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                                // maxlength="12" 
                                                 placeholder="000-000-0000"
                                                 // nombre del campo para el form
                                                 {...register('phone', {
@@ -309,7 +317,7 @@ function TableBranches({ allBranches, setAllBranches, isLoading }) {
                 </div>
             </div>
 
-            
+
 
 
         </>

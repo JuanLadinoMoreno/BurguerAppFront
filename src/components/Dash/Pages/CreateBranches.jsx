@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 
 function CreateBranches() {
     const { register, formState: { errors }, handleSubmit, reset } = useForm()
-
+    const { createBranch } = useCreateBranch();
     const onCreateBranch = async (data) => {
 
         // const {isCreated} = useCreateProd(data)
@@ -27,37 +27,38 @@ function CreateBranches() {
 
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
+                
                 try {
 
                     //   const resp = await onRegister(data)
 
-                    const resp = await useCreateBranch(data)
+                    const resp = await createBranch(data)
                     // await creaCustomer(data);
 
-                    if (resp) {
-                        // console.log('resp', resp);
-                        Swal.fire("Sucursal creado!", "", "info");
+                    if (resp.status === 201) {
+                        Swal.fire("Sucursal creada!", "", "success");
                         reset()
 
+                    } else if (Array.isArray(resp.response.data.error)) {
+                        const err = resp.response.data.error.join('<br>')
+                        Swal.fire({
+                            icon: 'warning',
+                            html: err
+                        });
                     }
                     else {
-                        Swal.fire("No pue posible crear la sucursal", "", "danger");
+                        Swal.fire("No fue posible crear la sucursal", "", "error");
 
                     }
                 } catch (error) {
                     console.log('error', error);
 
-                    if (error.response) {
+                    if (error?.response?.data?.error) {
                         Swal.fire("Permiso denegado", error.response.data.error, "warning");
-                        // if (err.response.status === 403) {
-                        //     const errorMessage = err.response.data.message[0];
-                        //     Swal.fire("Permiso denegado", errorMessage, "warning");
-                        // } else {
-                        //     Swal.fire("Error al eliminar el producto", err.response.data.message || "Error desconocido", "danger");
-                        // }
                     } else {
-                        Swal.fire("Error al crear el cliente", "Error desconocido", "danger");
+                        Swal.fire("Error al crear la sucursal", "Error desconocido", "error");
                     }
+
                 }
 
 

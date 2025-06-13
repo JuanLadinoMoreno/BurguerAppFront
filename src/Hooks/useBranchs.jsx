@@ -70,13 +70,6 @@ export const useCreateBranch = async (branch) => {
     try {
         return await createBranch(branch)
     } catch (error) {
-        console.log('error', error)
-    }
-}
-export const useUpdateBranch = async (bid, branch) => {
-    try {
-        return await updateBranch(bid, branch)
-    } catch (error) {
-        console.log('error', error)
+        return error
     }
 }
