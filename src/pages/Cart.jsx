@@ -381,7 +381,7 @@ export const Cart = () => {
   const buyCart = async () => {
     try {
       const title = isEdit ?
-        `Desea actualizar la orden ${idCard.substr(-4,4)}` :
+        `Desea actualizar la orden ${idCard.substr(-4, 4)}` :
         'Desea crear la orden'
       const result = await Swal.fire({
         title: title,
@@ -399,7 +399,8 @@ export const Cart = () => {
           if (!isEdit === true) {
 
 
-            const resp = await saveCart(count, idCustomer, total, user.branch.id, tableNumber, orderType)
+            const resp = await saveCart(count, idCustomer, total, user.branch.id, parseInt(tableNumber), orderType)
+
             if (resp) {
               clearsObjects();
               // Swal.fire("Producto creado!", "", "info");
@@ -423,7 +424,7 @@ export const Cart = () => {
                 position: "center",
                 icon: "success",
                 title: "Orden actualizada",
-                text: idCard.substr(-4,4),
+                text: idCard.substr(-4, 4),
                 // text: "Gracias por confiar en nosotros",
                 showConfirmButton: true,
                 // timer: 1500
@@ -438,6 +439,8 @@ export const Cart = () => {
           if (error.response) {
 
             if (error.response.status === 400) {
+              Array.isArray(error.response.data.error) ?
+              Swal.fire("Error ", error.response.data.error.join('') || "Error desconocido", "danger") :
               Swal.fire("Permiso denegado", error.response.data.error, "warning");
             } else if (error.response.status === 409) {
               // Swal.fire("Permiso denegado", error.response.data.error, "warning");
@@ -449,6 +452,7 @@ export const Cart = () => {
               //   Swal.fire("Permiso denegado", error.response.data.message, "warning");
             }
           } else {
+            console.log(error)
             Swal.fire("Error al crear la orden", "Error desconocido", "danger");
           }
 
